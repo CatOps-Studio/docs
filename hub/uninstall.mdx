@@ -1,0 +1,133 @@
+---
+title: Uninstall
+description: 'Remove CatOps Hub from your server'
+---
+
+## Quick Uninstall
+
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sh -s -- -u
+```
+
+## What Gets Removed
+
+The uninstall process will:
+
+<Steps>
+  <Step title="Deactivate License">
+    Frees up your activation slot so you can use the license on another server
+  </Step>
+  <Step title="Stop Service">
+    Stops the running catops-hub systemd service
+  </Step>
+  <Step title="Remove systemd Files">
+    Deletes service and timer unit files
+  </Step>
+  <Step title="Remove Installation">
+    Deletes `/opt/catops/` including all data
+  </Step>
+  <Step title="Remove License File">
+    Deletes `/home/catops/.catops/`
+  </Step>
+  <Step title="Remove User">
+    Deletes the `catops` system user
+  </Step>
+</Steps>
+
+<Warning>
+  This will delete all metrics data permanently. Consider backing up first if needed.
+</Warning>
+
+## Manual Uninstall
+
+If you prefer to uninstall manually:
+
+```bash
+# 1. Deactivate license (important - frees activation slot)
+sudo -u catops /opt/catops/catops-hub deactivate
+
+# 2. Stop and disable service
+sudo systemctl stop catops-hub
+sudo systemctl disable catops-hub
+
+# 3. Remove systemd files
+sudo rm -f /etc/systemd/system/catops-hub.service
+sudo rm -f /etc/systemd/system/catops-hub-update.service
+sudo rm -f /etc/systemd/system/catops-hub-update.timer
+sudo systemctl daemon-reload
+
+# 4. Remove installation directory
+sudo rm -rf /opt/catops
+
+# 5. Remove license file
+sudo rm -rf /home/catops/.catops
+
+# 6. Remove user (optional)
+sudo userdel -r catops
+```
+
+## Keeping Your Data
+
+### Backup Before Uninstalling
+
+```bash
+# Backup database
+sudo cp -r /opt/catops/pb_data ~/catops-backup/
+
+# Backup license (optional)
+sudo cp -r /home/catops/.catops ~/catops-backup/
+```
+
+### Partial Uninstall (Keep Data)
+
+```bash
+# Stop service
+sudo systemctl stop catops-hub
+sudo systemctl disable catops-hub
+
+# Remove only the binary
+sudo rm /opt/catops/catops-hub
+
+# Remove systemd files
+sudo rm -f /etc/systemd/system/catops-hub.service
+sudo systemctl daemon-reload
+```
+
+## Reinstalling
+
+After uninstalling, you can reinstall at any time:
+
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sh
+```
+
+Your license key is still valid. Simply re-activate it on the new installation.
+
+<Note>
+  If you used the uninstall script, your license was deactivated automatically and can be used on the same or a different server.
+</Note>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Uninstall script fails">
+    Try manual uninstall steps above, or:
+    ```bash
+    # Force kill any running process
+    sudo pkill -9 catops-hub
+
+    # Then retry uninstall
+    curl -fsSL https://get.catops.app/hub.sh | sh -s -- -u
+    ```
+  </Accordion>
+  <Accordion title="License not deactivated">
+    If the automatic deactivation failed, you can contact support to manually reset your activation count.
+  </Accordion>
+  <Accordion title="User cannot be deleted">
+    If the user has running processes:
+    ```bash
+    sudo pkill -u catops
+    sudo userdel -r catops
+    ```
+  </Accordion>
+</AccordionGroup>

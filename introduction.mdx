@@ -1,0 +1,75 @@
+---
+title: Introduction
+description: 'Server monitoring and CLI tools for developers'
+---
+
+<img
+  className="block dark:hidden"
+  src="/images/hero-light.svg"
+  alt="CatOps Hero Light"
+/>
+<img
+  className="hidden dark:block"
+  src="/images/hero-dark.svg"
+  alt="CatOps Hero Dark"
+/>
+
+## What is CatOps?
+
+CatOps is a suite of tools for server monitoring and management:
+
+- **Hub** - Self-hosted server monitoring dashboard
+- **CLI** - Command-line tools for server management
+
+## Quick Start
+
+<CardGroup cols={2}>
+  <Card
+    title="Install Hub"
+    icon="server"
+    href="/hub/installation"
+  >
+    Deploy a monitoring dashboard on your server in under a minute
+  </Card>
+  <Card
+    title="Install CLI"
+    icon="terminal"
+    href="/cli/installation"
+  >
+    Install command-line tools for server management
+  </Card>
+</CardGroup>
+
+## Hub Installation
+
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sh
+```
+
+After installation:
+1. Open `http://your-server-ip:8090`
+2. Create your admin account
+3. Activate your license
+
+## CLI Installation
+
+```bash
+curl -fsSL https://get.catops.app/cli.sh | sh
+```
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Real-time Monitoring" icon="chart-line">
+    CPU, memory, disk, and network metrics with 10-second refresh
+  </Card>
+  <Card title="Docker Integration" icon="docker">
+    View containers, logs, start/stop/restart from dashboard
+  </Card>
+  <Card title="Self-hosted" icon="lock">
+    Your data stays on your server. No third-party services
+  </Card>
+  <Card title="Lightweight" icon="feather">
+    Single binary, ~15MB. Minimal resource usage
+  </Card>
+</CardGroup>

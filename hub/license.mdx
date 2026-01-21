@@ -1,0 +1,126 @@
+---
+title: License Activation
+description: 'Activate your CatOps Hub license'
+---
+
+CatOps Hub requires a valid license to operate. Licenses are managed through [Polar](https://polar.sh).
+
+## Getting a License
+
+<Steps>
+  <Step title="Visit catops.app/hub">
+    Go to [catops.app/hub](https://catops.app/hub) and choose your plan
+  </Step>
+  <Step title="Complete purchase">
+    Pay with credit card or other available methods
+  </Step>
+  <Step title="Receive license key">
+    You'll receive a license key via email immediately
+  </Step>
+</Steps>
+
+## Activating Your License
+
+### Via Web Interface
+
+1. Open your Hub dashboard (`http://your-server:8090`)
+2. If no license is found, you'll be redirected to `/activate`
+3. Enter your license key
+4. Click **Activate**
+
+<Frame>
+  <img src="/images/activate-page.png" alt="Activation Page" />
+</Frame>
+
+### Via API
+
+```bash
+curl -X POST http://localhost:8090/api/license/activate \
+  -H "Content-Type: application/json" \
+  -d '{"key": "YOUR_LICENSE_KEY"}'
+```
+
+Response:
+```json
+{
+  "success": true,
+  "message": "License activated successfully"
+}
+```
+
+## License Storage
+
+The license file is stored at:
+
+| Context | Path |
+|---------|------|
+| Local development | `~/.catops/.catops-license` |
+| Systemd service | `/home/catops/.catops/.catops-license` |
+
+## Checking License Status
+
+### Via Dashboard
+
+Go to **Settings** page to see your current plan and license status.
+
+### Via API
+
+```bash
+curl http://localhost:8090/api/license/status
+```
+
+```json
+{
+  "licensed": true,
+  "status": "active",
+  "activation_id": "abc123",
+  "customer": "you@example.com"
+}
+```
+
+## Deactivating License
+
+To move your license to another server:
+
+```bash
+catops-hub deactivate
+```
+
+This:
+- Notifies the license server
+- Frees up your activation slot
+- Removes the local license file
+
+<Warning>
+  After deactivation, Hub will redirect to the activation page until you enter a new license key.
+</Warning>
+
+## Activation Limits
+
+| Plan | Max Activations |
+|------|-----------------|
+| Personal | 1 server |
+| Pro | 3 servers |
+
+If you need more activations, contact support.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Invalid license key">
+    - Check that you copied the entire key
+    - Ensure there are no extra spaces or newlines
+    - Verify the key hasn't been revoked
+  </Accordion>
+  <Accordion title="Activation limit reached">
+    - Deactivate from another server first: `catops-hub deactivate`
+    - Or contact support to reset activations
+  </Accordion>
+  <Accordion title="License not persisting after restart">
+    Check file permissions:
+    ```bash
+    ls -la /home/catops/.catops/
+    ```
+    Ensure the catops user has write access to its home directory.
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,120 @@
+---
+title: CLI Commands
+description: 'CatOps Hub command-line reference'
+---
+
+The `catops-hub` binary supports several commands for managing your Hub installation.
+
+## serve
+
+Start the Hub server. This is the default command used by systemd.
+
+```bash
+catops-hub serve --http 0.0.0.0:8090
+```
+
+**Options:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--http` | Address and port to listen on | `0.0.0.0:8080` |
+| `--dir` | PocketBase data directory | `./pb_data` |
+
+<Info>
+  The systemd service uses `--http 0.0.0.0:8090` by default.
+</Info>
+
+## version
+
+Display the current version.
+
+```bash
+catops-hub version
+```
+
+**Aliases:**
+```bash
+catops-hub --version
+catops-hub -v
+```
+
+**Output:**
+```
+CatOps Hub v0.0.6
+```
+
+## update
+
+Self-update to the latest version from GitHub releases.
+
+```bash
+sudo catops-hub update
+```
+
+**What it does:**
+1. Checks for new releases on GitHub
+2. Downloads the appropriate binary for your platform
+3. Replaces the current binary
+4. Displays instructions to restart
+
+**After updating:**
+```bash
+sudo systemctl restart catops-hub
+```
+
+<Warning>
+  Run with `sudo` to have permission to replace the binary.
+</Warning>
+
+**Example output:**
+```
+Checking for updates...
+Updating from v0.0.5 to v0.0.6...
+Downloading update...
+Installing update...
+Successfully updated to v0.0.6
+Please restart the service: sudo systemctl restart catops-hub
+```
+
+## deactivate
+
+Deactivate the license and free up the activation slot.
+
+```bash
+catops-hub deactivate
+```
+
+**What it does:**
+1. Reads the local license file
+2. Sends deactivation request to the license server
+3. Removes the local license file
+
+**Use cases:**
+- Moving your license to another server
+- Before uninstalling Hub
+- Troubleshooting license issues
+
+<Warning>
+  After deactivation, Hub will redirect to the activation page. You'll need to re-enter a license key to use Hub again.
+</Warning>
+
+**Example output:**
+```
+2024/01/21 12:00:00 License deactivated successfully
+```
+
+## PocketBase Commands
+
+Since Hub is built on PocketBase, you can also use PocketBase admin commands:
+
+```bash
+# Create admin user manually
+catops-hub admin create admin@example.com password123
+
+# Show all available commands
+catops-hub --help
+```
+
+<Note>
+  Most PocketBase commands are not needed for normal Hub operation.
+</Note>

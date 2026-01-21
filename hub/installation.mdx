@@ -1,0 +1,159 @@
+---
+title: Installation
+description: 'Install CatOps Hub on your server'
+---
+
+## Quick Install
+
+Run this command on your server:
+
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sh
+```
+
+<Info>
+  The installation script requires root access. It will use `sudo` automatically if available.
+</Info>
+
+## What the Script Does
+
+1. Downloads the latest CatOps Hub binary
+2. Creates a `catops` system user
+3. Installs to `/opt/catops/`
+4. Adds `catops` user to docker group (for container monitoring)
+5. Creates and starts a systemd service
+6. Opens port 8090
+
+## Installation Options
+
+### Custom Port
+
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sh -s -- -p 9000
+```
+
+### Enable Auto-update
+
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sh -s -- --auto-update
+```
+
+This creates a systemd timer that checks for updates daily.
+
+### All Options
+
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sh -s -- --help
+```
+
+| Option | Description |
+|--------|-------------|
+| `-p <port>` | Custom port (default: 8090) |
+| `--auto-update` | Enable automatic daily updates |
+| `-u` | Uninstall CatOps Hub |
+| `-h, --help` | Show help |
+
+## Post-Installation
+
+After installation completes:
+
+```
+✅ CatOps Hub installed successfully!
+
+Dashboard: http://YOUR_IP:8090
+Data dir:  /opt/catops/data
+
+Next steps:
+  1. Open http://YOUR_IP:8090 in your browser
+  2. Create your admin account
+  3. Activate your license at /activate
+```
+
+## Directory Structure
+
+```
+/opt/catops/
+├── catops-hub      # Binary executable
+└── pb_data/        # PocketBase database
+    ├── data.db     # SQLite database
+    └── ...
+
+/home/catops/.catops/
+└── .catops-license # License file
+```
+
+## Service Management
+
+<CodeGroup>
+```bash Check Status
+sudo systemctl status catops-hub
+```
+
+```bash Restart
+sudo systemctl restart catops-hub
+```
+
+```bash View Logs
+sudo journalctl -u catops-hub -f
+```
+
+```bash Stop
+sudo systemctl stop catops-hub
+```
+</CodeGroup>
+
+## Firewall
+
+Make sure port 8090 is open:
+
+<CodeGroup>
+```bash UFW (Ubuntu)
+sudo ufw allow 8090
+```
+
+```bash firewalld (CentOS/RHEL)
+sudo firewall-cmd --add-port=8090/tcp --permanent
+sudo firewall-cmd --reload
+```
+
+```bash iptables
+sudo iptables -A INPUT -p tcp --dport 8090 -j ACCEPT
+```
+</CodeGroup>
+
+## Supported Platforms
+
+| OS | Architecture | Status |
+|----|--------------|--------|
+| Linux | x86_64 (amd64) | ✅ |
+| Linux | ARM64 (aarch64) | ✅ |
+| Linux | ARM (armv7) | ✅ |
+| macOS | x86_64 | ✅ |
+| macOS | ARM64 (Apple Silicon) | ✅ |
+| FreeBSD | x86_64 | ✅ |
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Service fails to start">
+    Check logs for errors:
+    ```bash
+    sudo journalctl -u catops-hub -n 50
+    ```
+    Common issues:
+    - Port already in use: change port with `-p`
+    - Permission denied: ensure catops user has correct permissions
+  </Accordion>
+  <Accordion title="Docker containers not showing">
+    Ensure catops user is in docker group:
+    ```bash
+    sudo usermod -aG docker catops
+    sudo systemctl restart catops-hub
+    ```
+  </Accordion>
+  <Accordion title="Cannot access dashboard">
+    - Check firewall settings
+    - Verify service is running: `systemctl status catops-hub`
+    - Try accessing locally: `curl http://localhost:8090`
+  </Accordion>
+</AccordionGroup>

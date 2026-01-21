@@ -1,0 +1,82 @@
+---
+title: Installation
+description: 'Install CatOps CLI'
+---
+
+## Quick Install
+
+```bash
+curl -fsSL https://get.catops.app/cli.sh | sh
+```
+
+This installs the `catops` binary to `/usr/local/bin/`.
+
+## Manual Installation
+
+Download from GitHub Releases:
+
+<CodeGroup>
+```bash Linux x64
+curl -L https://get.catops.app/releases/cli/latest/catops_linux_amd64.tar.gz | tar xz
+sudo mv catops /usr/local/bin/
+```
+
+```bash Linux ARM64
+curl -L https://get.catops.app/releases/cli/latest/catops_linux_arm64.tar.gz | tar xz
+sudo mv catops /usr/local/bin/
+```
+
+```bash macOS Intel
+curl -L https://get.catops.app/releases/cli/latest/catops_darwin_amd64.tar.gz | tar xz
+sudo mv catops /usr/local/bin/
+```
+
+```bash macOS Apple Silicon
+curl -L https://get.catops.app/releases/cli/latest/catops_darwin_arm64.tar.gz | tar xz
+sudo mv catops /usr/local/bin/
+```
+</CodeGroup>
+
+## Verify Installation
+
+```bash
+catops --version
+```
+
+## Update
+
+```bash
+catops update
+```
+
+Or reinstall:
+
+```bash
+curl -fsSL https://get.catops.app/cli.sh | sh
+```
+
+## Uninstall
+
+```bash
+sudo rm /usr/local/bin/catops
+```
+
+## Shell Completions
+
+<Tabs>
+  <Tab title="Bash">
+    ```bash
+    catops completion bash > /etc/bash_completion.d/catops
+    ```
+  </Tab>
+  <Tab title="Zsh">
+    ```bash
+    catops completion zsh > "${fpath[1]}/_catops"
+    ```
+  </Tab>
+  <Tab title="Fish">
+    ```bash
+    catops completion fish > ~/.config/fish/completions/catops.fish
+    ```
+  </Tab>
+</Tabs>

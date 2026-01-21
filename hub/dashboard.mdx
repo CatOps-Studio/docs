@@ -1,0 +1,130 @@
+---
+title: Dashboard
+description: 'Using the CatOps Hub dashboard'
+---
+
+The CatOps Hub dashboard provides real-time monitoring of your server's health and resources.
+
+## Overview
+
+<Frame>
+  <img src="/images/dashboard.png" alt="Dashboard Overview" />
+</Frame>
+
+The main dashboard displays:
+
+- **CPU Usage** - Current utilization percentage
+- **Memory** - Used/total RAM with percentage
+- **Disk** - Used/total disk space
+- **Network** - Incoming/outgoing traffic rates
+- **Load Average** - 1, 5, and 15 minute load
+
+Metrics refresh automatically every **10 seconds**.
+
+## Pages
+
+### Dashboard
+
+Real-time system metrics with historical charts.
+
+**Time ranges:**
+- 1 hour
+- 6 hours
+- 24 hours
+- 7 days (Pro plan only)
+
+### Metrics
+
+Detailed view of all collected metrics with interactive graphs.
+
+### Containers
+
+<Info>
+  Docker integration requires the `catops` user to be in the `docker` group. This is done automatically during installation.
+</Info>
+
+Features:
+- View all containers (running and stopped)
+- Container resource usage (CPU, memory, network)
+- Live log streaming
+- Container actions: start, stop, restart
+
+### Services
+
+Auto-detected services running on your server:
+
+| Category | Services |
+|----------|----------|
+| Web Servers | nginx, Apache, Caddy |
+| Databases | PostgreSQL, MySQL, MongoDB, Redis |
+| Runtimes | Node.js, Python, Go, Java |
+| Other | Docker, SSH, systemd |
+
+### Network
+
+**Connections tab:**
+- Active network connections
+- Remote addresses and ports
+- Associated processes
+
+**Listening tab:**
+- Ports your server is listening on
+- Bound addresses
+- Process information
+
+### Settings
+
+- Current plan and license info
+- Metrics storage statistics
+- Data retention settings
+- Plan comparison
+
+## Themes
+
+Toggle between **dark** and **light** mode:
+
+- **Desktop**: Click the theme button in the sidebar
+- **Mobile**: Use the theme button in the bottom navigation
+
+Your preference is saved in browser localStorage.
+
+## Mobile Support
+
+The dashboard is fully responsive:
+
+- Sidebar collapses to bottom navigation on mobile
+- Charts and tables adapt to screen size
+- Touch-friendly container controls
+
+## Data Retention
+
+Metrics older than your plan's retention period are automatically deleted:
+
+| Plan | Retention |
+|------|-----------|
+| Personal | 24 hours |
+| Pro | 30 days |
+
+The cleanup job runs hourly.
+
+## API Access
+
+All dashboard data is available via REST API:
+
+```bash
+# Current metrics
+curl http://localhost:8090/api/metrics/current
+
+# Historical metrics
+curl http://localhost:8090/api/metrics/history?period=1h
+
+# Containers list
+curl http://localhost:8090/api/containers
+
+# System info
+curl http://localhost:8090/api/system/info
+```
+
+<Note>
+  API endpoints require authentication via cookie. Use the same session as the dashboard.
+</Note>

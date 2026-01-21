@@ -1,0 +1,68 @@
+---
+title: Commands
+description: 'CatOps CLI command reference'
+---
+
+## Global Flags
+
+```bash
+catops --help      # Show help
+catops --version   # Show version
+```
+
+## Commands
+
+<Note>
+  CLI is under active development. More commands coming soon.
+</Note>
+
+### ssh
+
+SSH key and connection management.
+
+```bash
+# Generate new SSH key
+catops ssh keygen
+
+# List SSH keys
+catops ssh keys
+
+# Quick connect to saved server
+catops ssh connect myserver
+
+# Add server alias
+catops ssh add myserver user@192.168.1.100
+```
+
+### system
+
+System information commands.
+
+```bash
+# Show system info
+catops system info
+```
+
+### update
+
+Self-update to latest version.
+
+```bash
+catops update
+```
+
+### version
+
+Show CLI version.
+
+```bash
+catops version
+```
+
+---
+
+## Coming Soon
+
+- `catops docker` - Docker management commands
+- `catops deploy` - Simple deployment helpers
+- `catops logs` - Log viewing and searching

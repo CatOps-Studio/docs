@@ -1,0 +1,78 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "CatOps",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#0ea5e9",
+    "light": "#38bdf8",
+    "dark": "#0284c7",
+    "anchors": {
+      "from": "#0ea5e9",
+      "to": "#8b5cf6"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Pricing",
+      "url": "https://catops.app/hub"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Get Started",
+    "url": "https://catops.app/hub"
+  },
+  "tabs": [
+    {
+      "name": "Hub",
+      "url": "hub"
+    },
+    {
+      "name": "CLI",
+      "url": "cli"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/CatOps-Studio"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": ["introduction"]
+    },
+    {
+      "group": "Hub",
+      "pages": [
+        "hub/overview",
+        "hub/installation",
+        "hub/license",
+        "hub/dashboard",
+        "hub/commands",
+        "hub/configuration",
+        "hub/uninstall"
+      ]
+    },
+    {
+      "group": "Plans",
+      "pages": ["hub/plans"]
+    },
+    {
+      "group": "CLI",
+      "pages": [
+        "cli/overview",
+        "cli/installation",
+        "cli/commands"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/CatOps-Studio"
+  }
+}
