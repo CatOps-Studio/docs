@@ -6,42 +6,46 @@ description: 'Install CatOps CLI'
 ## Quick Install
 
 ```bash
-curl -fsSL https://get.catops.app/cli.sh | sh
+curl -fsSL https://get.catops.app/install.sh | bash
 ```
 
-This installs the `catops` binary to `/usr/local/bin/`.
+<Warning>
+  Do NOT use `sudo`. The script installs to `$HOME/.local/bin/`.
+</Warning>
 
-## Manual Installation
+## With Cloud Mode
 
-Download from GitHub Releases:
+To enable Telegram alerts, provide your auth token:
 
-<CodeGroup>
-```bash Linux x64
-curl -L https://get.catops.app/releases/cli/latest/catops_linux_amd64.tar.gz | tar xz
-sudo mv catops /usr/local/bin/
+```bash
+curl -fsSL https://get.catops.app/install.sh | AUTH_TOKEN="your_token" bash
 ```
 
-```bash Linux ARM64
-curl -L https://get.catops.app/releases/cli/latest/catops_linux_arm64.tar.gz | tar xz
-sudo mv catops /usr/local/bin/
-```
+Get your token from [catops.app/billing](https://catops.app/billing).
 
-```bash macOS Intel
-curl -L https://get.catops.app/releases/cli/latest/catops_darwin_amd64.tar.gz | tar xz
-sudo mv catops /usr/local/bin/
-```
+## What Happens
 
-```bash macOS Apple Silicon
-curl -L https://get.catops.app/releases/cli/latest/catops_darwin_arm64.tar.gz | tar xz
-sudo mv catops /usr/local/bin/
-```
-</CodeGroup>
+The script will:
+1. Download the CatOps binary
+2. Install to `~/.local/bin/catops`
+3. Add to your PATH
+4. Create config at `~/.catops/config.yaml`
+5. Set up autostart service
+6. Start monitoring
 
 ## Verify Installation
 
 ```bash
 catops --version
 ```
+
+If `catops` is not found, run:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+Or restart your terminal.
 
 ## Update
 
@@ -52,31 +56,38 @@ catops update
 Or reinstall:
 
 ```bash
-curl -fsSL https://get.catops.app/cli.sh | sh
+curl -fsSL https://get.catops.app/install.sh | bash
 ```
 
 ## Uninstall
 
 ```bash
-sudo rm /usr/local/bin/catops
+catops uninstall
 ```
 
-## Shell Completions
+Or manually:
 
-<Tabs>
-  <Tab title="Bash">
-    ```bash
-    catops completion bash > /etc/bash_completion.d/catops
-    ```
-  </Tab>
-  <Tab title="Zsh">
-    ```bash
-    catops completion zsh > "${fpath[1]}/_catops"
-    ```
-  </Tab>
-  <Tab title="Fish">
-    ```bash
-    catops completion fish > ~/.config/fish/completions/catops.fish
-    ```
-  </Tab>
-</Tabs>
+```bash
+rm ~/.local/bin/catops
+rm -rf ~/.catops
+```
+
+## Supported Systems
+
+| OS | Architecture |
+|----|--------------|
+| Linux | x86_64, ARM64 |
+| macOS | Intel, Apple Silicon |
+
+## Autostart
+
+CatOps automatically sets up autostart:
+
+- **Linux**: systemd user service
+- **macOS**: launchd service
+
+Check service status:
+
+```bash
+catops status
+```

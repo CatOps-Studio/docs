@@ -3,71 +3,61 @@ title: Overview
 description: 'Self-hosted server monitoring dashboard'
 ---
 
-CatOps Hub is a lightweight, self-hosted server monitoring dashboard. It provides real-time metrics, Docker container management, and a beautiful web interface.
+CatOps Hub is a lightweight server monitoring dashboard that you install on your server. Monitor CPU, memory, disk, network, and Docker containers from a beautiful web interface.
 
-## Features
+## What You Get
 
-<AccordionGroup>
-  <Accordion title="Real-time Metrics">
-    Monitor CPU, memory, disk, and network usage with automatic 10-second refresh. View historical data in interactive charts.
-  </Accordion>
-  <Accordion title="Docker Integration">
-    - View all containers (running and stopped)
-    - Container resource usage (CPU, memory)
-    - Live log streaming
-    - Start, stop, restart containers
-  </Accordion>
-  <Accordion title="Service Detection">
-    Automatic detection of running services:
-    - nginx, Apache
-    - PostgreSQL, MySQL, MongoDB
-    - Redis, Memcached
-    - Node.js, Python, Go
-    - And more...
-  </Accordion>
-  <Accordion title="Network Monitoring">
-    - Active network connections
-    - Listening ports
-    - Process information
-  </Accordion>
-</AccordionGroup>
+<CardGroup cols={2}>
+  <Card title="Real-time Metrics" icon="chart-line">
+    CPU, memory, disk usage and network traffic updated every 10 seconds
+  </Card>
+  <Card title="Docker Management" icon="docker">
+    View containers, check logs, start/stop/restart with one click
+  </Card>
+  <Card title="Service Detection" icon="server">
+    Automatically detects nginx, PostgreSQL, Redis, and other services
+  </Card>
+  <Card title="Network Connections" icon="network-wired">
+    See active connections and listening ports on your server
+  </Card>
+</CardGroup>
+
+## Quick Start
+
+<Steps>
+  <Step title="Install">
+    Run the install script on your server:
+    ```bash
+    curl -fsSL https://get.catops.app/hub.sh | sh
+    ```
+  </Step>
+  <Step title="Activate License">
+    Start Hub and enter your license key:
+    ```bash
+    catops-hub serve
+    ```
+  </Step>
+  <Step title="Open Dashboard">
+    Access the dashboard in your browser:
+    ```
+    http://your-server-ip:8090
+    ```
+  </Step>
+</Steps>
 
 ## Requirements
 
-| Requirement | Details |
-|-------------|---------|
-| OS | Linux (Ubuntu, Debian, CentOS, etc.), macOS, FreeBSD |
-| Architecture | x86_64, ARM64, ARM |
-| Access | Root access for installation |
-| Port | 8090 (configurable) |
+- **Linux**, macOS, or FreeBSD
+- Root access for installation
+- Port **8090** (or custom port)
 
-## How It Works
+## Pricing
 
-```mermaid
-graph LR
-    A[catops-hub binary] --> B[Metrics Collector]
-    A --> C[Web Dashboard]
-    A --> D[PocketBase DB]
-    B --> E[System Metrics]
-    B --> F[Docker API]
-    B --> G[Network Stats]
-```
+| Plan | Price | Data Retention | Docker Containers |
+|------|-------|----------------|-------------------|
+| Personal | $5/month | 24 hours | Up to 10 |
+| Pro | $12/month | 30 days | Unlimited |
 
-1. **Single Binary** - Hub is distributed as a single executable (~15MB)
-2. **Metrics Collection** - Collects system metrics every 10 seconds
-3. **Local Storage** - Data stored in embedded PocketBase database
-4. **Web Interface** - React dashboard served from the binary
-5. **Cleanup Job** - Automatically removes old data based on retention period
-
-## License
-
-CatOps Hub requires a license to operate.
-
-| Plan | Price | Retention | Containers |
-|------|-------|-----------|------------|
-| Personal | $5/mo | 24 hours | Up to 10 |
-| Pro | $12/mo | 30 days | Unlimited |
-
-<Card title="Get a License" icon="key" href="https://catops.app/hub">
+<Card title="Get Started" icon="rocket" href="https://catops.app/hub">
   Purchase a license at catops.app/hub
 </Card>

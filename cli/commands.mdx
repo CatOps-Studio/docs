@@ -3,55 +3,103 @@ title: Commands
 description: 'CatOps CLI command reference'
 ---
 
-## Global Flags
+## status
+
+Show current system metrics.
 
 ```bash
-catops --help      # Show help
-catops --version   # Show version
+catops status
 ```
 
-## Commands
+Shows CPU, memory, disk usage and monitoring status.
 
-<Note>
-  CLI is under active development. More commands coming soon.
-</Note>
+## ask
 
-### ssh
-
-SSH key and connection management.
+Ask AI questions about your server.
 
 ```bash
-# Generate new SSH key
-catops ssh keygen
-
-# List SSH keys
-catops ssh keys
-
-# Quick connect to saved server
-catops ssh connect myserver
-
-# Add server alias
-catops ssh add myserver user@192.168.1.100
+catops ask "why is CPU high?"
+catops ask "what's using the most memory?"
 ```
 
-### system
+<Info>
+  Requires cloud mode (AUTH_TOKEN) to work.
+</Info>
 
-System information commands.
+## start
+
+Start the monitoring service.
 
 ```bash
-# Show system info
-catops system info
+catops start
 ```
 
-### update
+## restart
 
-Self-update to latest version.
+Restart the monitoring service.
+
+```bash
+catops restart
+```
+
+Use this after changing configuration.
+
+## set
+
+Configure monitoring thresholds.
+
+```bash
+# Set CPU alert threshold (percentage)
+catops set cpu 80
+
+# Set memory alert threshold (percentage)
+catops set mem 80
+
+# Set disk alert threshold (percentage)
+catops set disk 90
+```
+
+When a threshold is exceeded, you'll get a Telegram alert (if cloud mode is enabled).
+
+## auth
+
+Manage cloud authentication.
+
+```bash
+# Login with token
+catops auth login <token>
+
+# Logout
+catops auth logout
+```
+
+Get your token from [catops.app/billing](https://catops.app/billing).
+
+## update
+
+Update to the latest version.
 
 ```bash
 catops update
 ```
 
-### version
+## uninstall
+
+Remove CatOps from your system.
+
+```bash
+catops uninstall
+```
+
+## config
+
+View current configuration.
+
+```bash
+catops config
+```
+
+## version
 
 Show CLI version.
 
@@ -59,10 +107,8 @@ Show CLI version.
 catops version
 ```
 
----
+Or:
 
-## Coming Soon
-
-- `catops docker` - Docker management commands
-- `catops deploy` - Simple deployment helpers
-- `catops logs` - Log viewing and searching
+```bash
+catops --version
+```

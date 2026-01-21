@@ -3,128 +3,71 @@ title: Dashboard
 description: 'Using the CatOps Hub dashboard'
 ---
 
-The CatOps Hub dashboard provides real-time monitoring of your server's health and resources.
+The dashboard shows your server's health and resources in real-time.
 
-## Overview
+## Main Dashboard
 
-<Frame>
-  <img src="/images/dashboard.png" alt="Dashboard Overview" />
-</Frame>
+When you open Hub, you'll see:
 
-The main dashboard displays:
+- **CPU** - Current usage percentage
+- **Memory** - How much RAM is used
+- **Disk** - Storage space used
+- **Network** - Traffic in/out (bytes per second)
+- **Load Average** - Server load (1, 5, 15 min)
 
-- **CPU Usage** - Current utilization percentage
-- **Memory** - Used/total RAM with percentage
-- **Disk** - Used/total disk space
-- **Network** - Incoming/outgoing traffic rates
-- **Load Average** - 1, 5, and 15 minute load
+All metrics update every **10 seconds**.
 
-Metrics refresh automatically every **10 seconds**.
+## Historical Charts
 
-## Pages
+Click any metric card to see historical data. Choose time range:
 
-### Dashboard
-
-Real-time system metrics with historical charts.
-
-**Time ranges:**
 - 1 hour
 - 6 hours
 - 24 hours
-- 7 days (Pro plan only)
+- 7 days (Pro plan)
 
-### Metrics
+## Containers
 
-Detailed view of all collected metrics with interactive graphs.
+View and manage your Docker containers:
 
-### Containers
+- See all containers (running and stopped)
+- Check CPU and memory usage per container
+- Stream logs in real-time
+- Start, stop, or restart containers with one click
 
 <Info>
-  Docker integration requires the `catops` user to be in the `docker` group. This is done automatically during installation.
+  Docker containers appear automatically if Docker is installed on your server.
 </Info>
 
-Features:
-- View all containers (running and stopped)
-- Container resource usage (CPU, memory, network)
-- Live log streaming
-- Container actions: start, stop, restart
+## Services
 
-### Services
+Hub automatically detects common services running on your server:
 
-Auto-detected services running on your server:
+- **Web**: nginx, Apache
+- **Database**: PostgreSQL, MySQL, MongoDB, Redis
+- **Other**: Docker, SSH
 
-| Category | Services |
-|----------|----------|
-| Web Servers | nginx, Apache, Caddy |
-| Databases | PostgreSQL, MySQL, MongoDB, Redis |
-| Runtimes | Node.js, Python, Go, Java |
-| Other | Docker, SSH, systemd |
+Each service shows whether it's running or stopped.
 
-### Network
+## Network
 
-**Connections tab:**
-- Active network connections
-- Remote addresses and ports
-- Associated processes
+**Connections** - See active network connections with remote addresses and which process created them.
 
-**Listening tab:**
-- Ports your server is listening on
-- Bound addresses
-- Process information
+**Listening** - See which ports your server is listening on and what process is using each port.
 
-### Settings
+## Settings
 
-- Current plan and license info
-- Metrics storage statistics
-- Data retention settings
-- Plan comparison
+View your current plan, license status, and data retention info.
 
-## Themes
+## Theme
 
-Toggle between **dark** and **light** mode:
-
-- **Desktop**: Click the theme button in the sidebar
-- **Mobile**: Use the theme button in the bottom navigation
-
-Your preference is saved in browser localStorage.
-
-## Mobile Support
-
-The dashboard is fully responsive:
-
-- Sidebar collapses to bottom navigation on mobile
-- Charts and tables adapt to screen size
-- Touch-friendly container controls
+Switch between **dark** and **light** mode using the theme button in the sidebar.
 
 ## Data Retention
 
-Metrics older than your plan's retention period are automatically deleted:
+Old metrics are automatically cleaned up based on your plan:
 
-| Plan | Retention |
-|------|-----------|
+| Plan | Data kept for |
+|------|---------------|
 | Personal | 24 hours |
 | Pro | 30 days |
-
-The cleanup job runs hourly.
-
-## API Access
-
-All dashboard data is available via REST API:
-
-```bash
-# Current metrics
-curl http://localhost:8090/api/metrics/current
-
-# Historical metrics
-curl http://localhost:8090/api/metrics/history?period=1h
-
-# Containers list
-curl http://localhost:8090/api/containers
-
-# System info
-curl http://localhost:8090/api/system/info
-```
-
-<Note>
-  API endpoints require authentication via cookie. Use the same session as the dashboard.
-</Note>

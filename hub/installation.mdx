@@ -12,17 +12,18 @@ curl -fsSL https://get.catops.app/hub.sh | sh
 ```
 
 <Info>
-  The installation script requires root access. It will use `sudo` automatically if available.
+  Requires root access. The script will use `sudo` automatically.
 </Info>
 
-## What the Script Does
+## What Happens
 
-1. Downloads the latest CatOps Hub binary
-2. Creates a `catops` system user
-3. Installs to `/opt/catops/`
-4. Adds `catops` user to docker group (for container monitoring)
-5. Creates and starts a systemd service
-6. Opens port 8090
+The script will:
+1. Download the latest CatOps Hub
+2. Create `catops` system user
+3. Install to `/opt/catops/`
+4. Add user to docker group (for container monitoring)
+5. Set up systemd service
+6. Start the dashboard on port 8090
 
 ## Installation Options
 
@@ -32,19 +33,15 @@ curl -fsSL https://get.catops.app/hub.sh | sh
 curl -fsSL https://get.catops.app/hub.sh | sh -s -- -p 9000
 ```
 
-### Enable Auto-update
+### Enable Auto-updates
 
 ```bash
 curl -fsSL https://get.catops.app/hub.sh | sh -s -- --auto-update
 ```
 
-This creates a systemd timer that checks for updates daily.
+Creates a systemd timer that checks for updates daily.
 
 ### All Options
-
-```bash
-curl -fsSL https://get.catops.app/hub.sh | sh -s -- --help
-```
 
 | Option | Description |
 |--------|-------------|
@@ -53,12 +50,12 @@ curl -fsSL https://get.catops.app/hub.sh | sh -s -- --help
 | `-u` | Uninstall CatOps Hub |
 | `-h, --help` | Show help |
 
-## Post-Installation
+## After Installation
 
-After installation completes:
+You'll see:
 
 ```
-✅ CatOps Hub installed successfully!
+CatOps Hub installed successfully!
 
 Dashboard: http://YOUR_IP:8090
 Data dir:  /opt/catops/data
@@ -69,20 +66,17 @@ Next steps:
   3. Activate your license at /activate
 ```
 
-## Directory Structure
+## Updating
 
-```
-/opt/catops/
-├── catops-hub      # Binary executable
-└── pb_data/        # PocketBase database
-    ├── data.db     # SQLite database
-    └── ...
+To update CatOps Hub to the latest version:
 
-/home/catops/.catops/
-└── .catops-license # License file
+```bash
+curl -fsSL https://get.catops.app/update-hub.sh | sh
 ```
 
-## Service Management
+Or if you installed with `--auto-update`, updates happen daily automatically.
+
+## Managing the Service
 
 <CodeGroup>
 ```bash Check Status
@@ -102,9 +96,9 @@ sudo systemctl stop catops-hub
 ```
 </CodeGroup>
 
-## Firewall
+## Open Firewall Port
 
-Make sure port 8090 is open:
+Make sure port 8090 is accessible:
 
 <CodeGroup>
 ```bash UFW (Ubuntu)
@@ -115,37 +109,30 @@ sudo ufw allow 8090
 sudo firewall-cmd --add-port=8090/tcp --permanent
 sudo firewall-cmd --reload
 ```
-
-```bash iptables
-sudo iptables -A INPUT -p tcp --dport 8090 -j ACCEPT
-```
 </CodeGroup>
 
-## Supported Platforms
+## Supported Systems
 
-| OS | Architecture | Status |
-|----|--------------|--------|
-| Linux | x86_64 (amd64) | ✅ |
-| Linux | ARM64 (aarch64) | ✅ |
-| Linux | ARM (armv7) | ✅ |
-| macOS | x86_64 | ✅ |
-| macOS | ARM64 (Apple Silicon) | ✅ |
-| FreeBSD | x86_64 | ✅ |
+| OS | Architecture |
+|----|--------------|
+| Linux | x86_64, ARM64, ARM |
+| macOS | Intel, Apple Silicon |
+| FreeBSD | x86_64 |
 
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="Service fails to start">
-    Check logs for errors:
+    Check logs:
     ```bash
     sudo journalctl -u catops-hub -n 50
     ```
     Common issues:
-    - Port already in use: change port with `-p`
-    - Permission denied: ensure catops user has correct permissions
+    - Port already in use - use `-p` to change port
+    - Permission denied - reinstall the script
   </Accordion>
   <Accordion title="Docker containers not showing">
-    Ensure catops user is in docker group:
+    The install script adds catops user to docker group automatically. If containers still don't show:
     ```bash
     sudo usermod -aG docker catops
     sudo systemctl restart catops-hub
@@ -154,6 +141,6 @@ sudo iptables -A INPUT -p tcp --dport 8090 -j ACCEPT
   <Accordion title="Cannot access dashboard">
     - Check firewall settings
     - Verify service is running: `systemctl status catops-hub`
-    - Try accessing locally: `curl http://localhost:8090`
+    - Try locally: `curl http://localhost:8090`
   </Accordion>
 </AccordionGroup>

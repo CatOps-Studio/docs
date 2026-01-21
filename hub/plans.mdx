@@ -3,104 +3,61 @@ title: Plans & Pricing
 description: 'CatOps Hub pricing plans'
 ---
 
-CatOps Hub offers two plans to fit your needs.
-
 ## Plan Comparison
 
 | Feature | Personal | Pro |
 |---------|----------|-----|
 | **Price** | $5/month | $12/month |
 | **Data Retention** | 24 hours | 30 days |
-| **Containers** | Up to 10 | Unlimited |
-| **Server Activations** | 1 | 3 |
-| **Alerts** | Basic (in-app) | Email alerts |
-| **Support** | Community | Priority |
+| **Docker Containers** | Up to 10 | Unlimited |
+| **Servers** | 1 | 3 |
 
-## Personal Plan
+## Personal - $5/month
 
-<Card title="$5/month" icon="user">
-  Best for personal projects, development servers, and small VPS instances.
-</Card>
+Best for personal projects and development servers.
 
-**Includes:**
 - Real-time monitoring dashboard
-- Docker container management (up to 10 containers)
+- Docker container management (up to 10)
 - Service detection
 - Network monitoring
 - 24-hour metrics history
-- Basic in-app alerts
-- 1 server activation
+- 1 server
 
-## Pro Plan
+## Pro - $12/month
 
-<Card title="$12/month" icon="building">
-  Best for production servers, agencies, and teams that need longer history.
-</Card>
+Best for production servers and teams.
 
-**Everything in Personal, plus:**
+Everything in Personal, plus:
 - 30-day metrics retention
 - Unlimited containers
-- Email alerts (coming soon)
-- Up to 3 server activations
-- Priority support
+- Up to 3 servers
+
+<Card title="Get Started" icon="rocket" href="https://catops.app/hub">
+  Purchase at catops.app/hub
+</Card>
 
 ## Upgrading
 
-<Steps>
-  <Step title="Purchase Pro">
-    Visit [catops.app/hub](https://catops.app/hub) and purchase Pro plan
-  </Step>
-  <Step title="Deactivate Current">
-    On your server:
-    ```bash
-    catops-hub deactivate
-    ```
-  </Step>
-  <Step title="Activate New">
-    Enter your new Pro license key in Settings or `/activate`
-  </Step>
-</Steps>
+1. Purchase Pro at [catops.app/hub](https://catops.app/hub)
+2. Find your new license key at [catops.app/billing](https://catops.app/billing) in the Hub tab
+3. Deactivate current license: `sudo -u catops /opt/catops/catops-hub deactivate`
+4. Enter your new Pro license key
 
 Your data is preserved during the upgrade.
-
-## Downgrading
-
-If you downgrade from Pro to Personal:
-
-- Data retention changes to 24 hours
-- Metrics older than 24 hours will be deleted at the next hourly cleanup
-- Container limit of 10 will apply
 
 ## FAQ
 
 <AccordionGroup>
   <Accordion title="Can I switch between plans?">
-    Yes, you can upgrade or downgrade at any time. Your metrics data is preserved (within the new plan's retention limit).
+    Yes, upgrade or downgrade anytime. Your data is preserved (within the new plan's retention limit).
   </Accordion>
   <Accordion title="What happens if my license expires?">
-    Hub will continue running but redirect to the activation page. Your data is preserved. Renew or reactivate to continue using Hub.
+    Hub redirects to the activation page. Your data is preserved. Renew to continue.
   </Accordion>
   <Accordion title="Can I use one license on multiple servers?">
-    - **Personal**: 1 server only
-    - **Pro**: Up to 3 servers
-
-    Need more? Contact support for volume pricing.
-  </Accordion>
-  <Accordion title="Is there a free trial?">
-    Not currently. The Personal plan at $5/month is designed to be accessible for everyone.
+    Personal: 1 server. Pro: up to 3 servers.
   </Accordion>
   <Accordion title="What payment methods are accepted?">
-    We accept credit/debit cards through Polar. More payment methods coming soon.
-  </Accordion>
-  <Accordion title="Can I get a refund?">
-    Contact support within 7 days of purchase for a full refund if Hub doesn't meet your needs.
+    Credit/debit cards through Polar.
   </Accordion>
 </AccordionGroup>
-
-## Enterprise
-
-Need more than 3 servers or custom features?
-
-<Card title="Contact Us" icon="envelope" href="mailto:support@catops.app">
-  Email support@catops.app for enterprise pricing
-</Card>

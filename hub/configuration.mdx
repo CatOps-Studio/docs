@@ -3,9 +3,9 @@ title: Configuration
 description: 'Configure CatOps Hub'
 ---
 
-CatOps Hub is designed to work out of the box with minimal configuration.
+CatOps Hub works out of the box with minimal configuration.
 
-## Port Configuration
+## Change Port
 
 ### During Installation
 
@@ -34,24 +34,20 @@ sudo systemctl daemon-reload
 sudo systemctl restart catops-hub
 ```
 
-## Auto-Update
+## Auto-Updates
 
-### Enable During Installation
+Enable during installation:
 
 ```bash
 curl -fsSL https://get.catops.app/hub.sh | sh -s -- --auto-update
 ```
 
-This creates a systemd timer that checks for updates daily at a random time.
-
-### Check Timer Status
-
+Check timer status:
 ```bash
 sudo systemctl status catops-hub-update.timer
 ```
 
-### Disable Auto-Update
-
+Disable auto-updates:
 ```bash
 sudo systemctl disable catops-hub-update.timer
 sudo systemctl stop catops-hub-update.timer
@@ -73,15 +69,9 @@ server {
         proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 ```
-
-<Info>
-  The `Upgrade` and `Connection` headers are required for Server-Sent Events (SSE) used by real-time metrics.
-</Info>
 
 ### Caddy
 
@@ -91,52 +81,20 @@ monitoring.example.com {
 }
 ```
 
-### With SSL (nginx + certbot)
+## Docker Access
 
-```bash
-# Install certbot
-sudo apt install certbot python3-certbot-nginx
-
-# Get certificate
-sudo certbot --nginx -d monitoring.example.com
-```
-
-## Docker Socket Access
-
-For container monitoring, Hub needs access to the Docker socket.
-
-The installation script adds the `catops` user to the `docker` group automatically.
-
-### Manual Setup
+Hub automatically detects Docker containers if Docker is installed.
 
 If containers aren't showing:
 
 ```bash
-# Check if catops is in docker group
-groups catops
-
-# Add to docker group if not
 sudo usermod -aG docker catops
-
-# Restart Hub
 sudo systemctl restart catops-hub
 ```
 
-### Docker Socket Location
-
-By default, Hub looks for the Docker socket at `/var/run/docker.sock`.
-
-## Data Storage
-
-| Path | Description |
-|------|-------------|
-| `/opt/catops/catops-hub` | Binary executable |
-| `/opt/catops/pb_data/` | PocketBase database |
-| `/home/catops/.catops/` | License file |
+## Backup & Restore
 
 ### Backup
-
-To backup your Hub data:
 
 ```bash
 sudo cp -r /opt/catops/pb_data ~/catops-backup/
@@ -150,21 +108,3 @@ sudo cp -r ~/catops-backup/pb_data /opt/catops/
 sudo chown -R catops:catops /opt/catops/pb_data
 sudo systemctl start catops-hub
 ```
-
-## Resource Limits
-
-To limit Hub's resource usage, edit the systemd service:
-
-```bash
-sudo systemctl edit catops-hub
-```
-
-```ini
-[Service]
-MemoryMax=256M
-CPUQuota=50%
-```
-
-<Note>
-  Hub typically uses very little resources (~30MB RAM, minimal CPU).
-</Note>
