@@ -6,7 +6,7 @@ description: 'Remove CatOps Hub from your server'
 ## Quick Uninstall
 
 ```bash
-curl -fsSL https://get.catops.app/hub.sh | sh -s -- -u
+curl -fsSL https://get.catops.app/hub.sh | sudo sh -s -- -u
 ```
 
 This will:
@@ -58,7 +58,7 @@ sudo userdel -r catops
 After uninstalling, reinstall anytime:
 
 ```bash
-curl -fsSL https://get.catops.app/hub.sh | sh
+curl -fsSL https://get.catops.app/hub.sh | sudo sh
 ```
 
 Your license key is still valid - just activate it again.

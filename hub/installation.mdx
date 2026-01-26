@@ -8,7 +8,7 @@ description: 'Install CatOps Hub on your server'
 Run this command on your server:
 
 ```bash
-curl -fsSL https://get.catops.app/hub.sh | sh
+curl -fsSL https://get.catops.app/hub.sh | sudo sh
 ```
 
 <Info>
@@ -30,13 +30,13 @@ The script will:
 ### Custom Port
 
 ```bash
-curl -fsSL https://get.catops.app/hub.sh | sh -s -- -p 9000
+curl -fsSL https://get.catops.app/hub.sh | sudo sh -s -- -p 9000
 ```
 
 ### Enable Auto-updates
 
 ```bash
-curl -fsSL https://get.catops.app/hub.sh | sh -s -- --auto-update
+curl -fsSL https://get.catops.app/hub.sh | sudo sh -s -- --auto-update
 ```
 
 Creates a systemd timer that checks for updates daily.
