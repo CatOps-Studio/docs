@@ -1,0 +1,95 @@
+---
+title: Integrations
+description: 'Connect CatOps with other tools'
+---
+
+## Telegram
+
+Receive alerts directly in Telegram.
+
+<Steps>
+  <Step title="Open Bot">
+    Go to [@CatOpsBot](https://t.me/CatOpsBot)
+  </Step>
+  <Step title="Start">
+    Send `/start` to the bot
+  </Step>
+  <Step title="Get Code">
+    Copy the 6-digit connection code
+  </Step>
+  <Step title="Connect">
+    In CatOps: Settings → Notifications → Telegram → Enter code
+  </Step>
+</Steps>
+
+### Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `/start` | Get connection code |
+| `/status` | Quick status overview |
+| `/help` | List all commands |
+
+## Email
+
+Email notifications work out of the box with your account email.
+
+### Customize
+
+1. Go to Settings → Notifications → Email
+2. Enable/disable email alerts
+3. Add additional email addresses (PRO)
+
+## Slack (Coming Soon)
+
+Connect to receive alerts in your Slack channels.
+
+## Discord (Coming Soon)
+
+Add the CatOps bot to your Discord server.
+
+## Webhooks (Coming Soon)
+
+Send alerts to any URL for custom integrations.
+
+```json
+{
+  "event": "alert",
+  "type": "health_check_down",
+  "name": "Production API",
+  "status": "down",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+```
+
+## API Access
+
+The CatOps API allows you to:
+- Get current metrics
+- List servers and health checks
+- View alert history
+
+API documentation coming soon.
+
+## Prometheus Export (CLI)
+
+Export metrics in Prometheus format:
+
+```bash
+catops prometheus
+```
+
+Or run continuously:
+
+```bash
+catops prometheus --serve --port 9090
+```
+
+Then add to your Prometheus config:
+
+```yaml
+scrape_configs:
+  - job_name: 'catops'
+    static_configs:
+      - targets: ['localhost:9090']
+```

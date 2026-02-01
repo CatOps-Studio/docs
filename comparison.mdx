@@ -1,0 +1,152 @@
+---
+title: Product Comparison
+description: 'Cloud vs Hub vs CLI - choose the right product for your needs'
+---
+
+## Overview
+
+CatOps offers three products that can work independently or together:
+
+| | Cloud | Hub | CLI |
+|---|:---:|:---:|:---:|
+| **Dashboard** | Web (catops.app) | Self-hosted | Terminal |
+| **Data storage** | Our servers | Your server | Local only |
+| **Pricing** | Free / $9-29 | $5-99 one-time | Free |
+| **Multi-server** | Yes | Yes | No |
+
+## Feature Comparison
+
+### Monitoring
+
+| Feature | Cloud | Hub | CLI |
+|---------|:-----:|:---:|:---:|
+| CPU, Memory, Disk, Network | Yes | Yes | Yes |
+| Process monitoring | Yes | Yes | Yes |
+| Docker containers | Yes | Yes | No |
+| Container logs | Yes | Yes | No |
+| Container actions (start/stop) | No | Yes | No |
+| Service detection | Yes | Yes | Yes |
+| Network connections | Yes | Yes | No |
+
+### Health Checks
+
+| Feature | Cloud | Hub | CLI |
+|---------|:-----:|:---:|:---:|
+| HTTP monitoring | Yes | Yes | No |
+| TCP monitoring | Yes | Coming soon | No |
+| Response time tracking | Yes | Yes | No |
+| SSL certificate monitoring | Yes | No | No |
+| Public status pages | PRO | No | No |
+
+### Alerts
+
+| Feature | Cloud | Hub | CLI |
+|---------|:-----:|:---:|:---:|
+| Telegram | Yes | Yes | Yes* |
+| Email | Yes | No | Yes* |
+| Slack | Coming soon | Coming soon | No |
+| Discord | Coming soon | Coming soon | No |
+
+<Note>
+  *CLI alerts require Cloud mode enabled
+</Note>
+
+### Other
+
+| Feature | Cloud | Hub | CLI |
+|---------|:-----:|:---:|:---:|
+| AI Assistant | Yes | No | Yes* |
+| Multi-user | Yes | PRO | N/A |
+| RBAC | Yes | PRO | N/A |
+| Audit logs | Yes | PRO | No |
+| Data retention | 7-30 days | 7-30 days | None |
+| Auto-updates | Agent only | Optional | Yes |
+
+## Pricing
+
+<CardGroup cols={3}>
+  <Card title="Cloud Free">
+    **$0/month**
+    - 3 servers
+    - 3 health checks
+    - 7-day retention
+    - Email alerts
+  </Card>
+  <Card title="Cloud PRO">
+    **$9/month**
+    - Unlimited servers
+    - Unlimited health checks
+    - 30-day retention
+    - All alert channels
+    - Public status pages
+  </Card>
+  <Card title="Cloud Team">
+    **$29/month**
+    - Everything in PRO
+    - Team collaboration
+    - Priority support
+  </Card>
+</CardGroup>
+
+<CardGroup cols={3}>
+  <Card title="Hub Personal">
+    **$5 one-time**
+    - Up to 3 devices
+    - 7-day retention
+    - Lifetime updates
+  </Card>
+  <Card title="Hub PRO">
+    **$99 one-time**
+    - Unlimited devices
+    - 30-day retention
+    - Multi-user + RBAC
+    - Audit logs
+  </Card>
+  <Card title="CLI">
+    **Free forever**
+    - Single server
+    - Terminal UI only
+    - Cloud mode optional
+  </Card>
+</CardGroup>
+
+## Which One Should You Choose?
+
+<AccordionGroup>
+  <Accordion title="I want the fastest setup possible">
+    **Choose Cloud.** Sign up, install the agent, done. No servers to manage.
+  </Accordion>
+
+  <Accordion title="I care about data privacy">
+    **Choose Hub.** All data stays on your server. We never see it.
+  </Accordion>
+
+  <Accordion title="I have air-gapped or private networks">
+    **Choose Hub.** Works completely offline after activation.
+  </Accordion>
+
+  <Accordion title="I just want to check my server quickly">
+    **Choose CLI.** Just run `catops status` - no setup needed.
+  </Accordion>
+
+  <Accordion title="I need to monitor multiple servers">
+    **Choose Cloud or Hub.** Both support multi-server monitoring.
+  </Accordion>
+
+  <Accordion title="I want Docker container management">
+    **Choose Hub.** Full container control: start, stop, restart, logs.
+  </Accordion>
+
+  <Accordion title="I need public status pages">
+    **Choose Cloud PRO.** Share uptime status with your users.
+  </Accordion>
+
+</AccordionGroup>
+
+## Can I Use Multiple Products?
+
+Yes! Here are common combinations:
+
+- **Cloud + CLI**: Agent sends metrics to Cloud dashboard
+- **Hub + CLI Agent**: Hub receives metrics from remote agents
+- **Cloud + Hub**: Use Cloud for some servers, Hub for private ones

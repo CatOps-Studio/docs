@@ -1,21 +1,27 @@
 ---
-title: Overview
-description: 'CatOps CLI - Server monitoring agent'
+title: CLI Overview
+description: 'CatOps CLI - lightweight monitoring agent'
 ---
 
-CatOps CLI is a lightweight monitoring agent that runs on your servers and sends metrics to the cloud dashboard.
+CatOps CLI is a free, lightweight monitoring agent that runs on your servers. Use it standalone or connect to Cloud for dashboards and alerts.
 
 ## Features
 
 <CardGroup cols={2}>
-  <Card title="System Monitoring" icon="chart-line">
-    CPU, memory, disk, and network metrics
+  <Card title="System Metrics" icon="chart-line">
+    CPU, memory, disk, network - updated in real-time
   </Card>
-  <Card title="Telegram Alerts" icon="bell">
-    Get notified when something goes wrong
+  <Card title="Process Monitoring" icon="microchip">
+    See which processes consume the most resources
+  </Card>
+  <Card title="Service Detection" icon="gears">
+    Auto-detect nginx, PostgreSQL, Redis, Docker
   </Card>
   <Card title="AI Assistant" icon="robot">
-    Ask questions about your server
+    Ask "why is CPU high?" and get intelligent answers
+  </Card>
+  <Card title="Telegram Alerts" icon="bell">
+    Get notified when thresholds are exceeded
   </Card>
   <Card title="Auto-start" icon="play">
     Runs automatically on boot
@@ -28,40 +34,73 @@ CatOps CLI is a lightweight monitoring agent that runs on your servers and sends
 curl -fsSL https://get.catops.app/install.sh | bash
 ```
 
-With cloud mode (for Telegram alerts):
-
-```bash
-curl -fsSL https://get.catops.app/install.sh | AUTH_TOKEN="your_token" bash
-```
-
 <Warning>
-  Do NOT use `sudo` with the install script. It installs to your home directory.
+  Don't use `sudo`. The CLI installs to your home directory.
 </Warning>
 
 ## Basic Usage
 
 ```bash
-# Check status
+# Check server status
 catops status
 
+# View top processes
+catops processes
+
 # Ask AI about your server
-catops ask "why is CPU high?"
+catops ask "why is memory high?"
 
-# Configure thresholds
-catops set cpu 80
-catops set mem 80
-catops set disk 90
-
-# Restart monitoring
-catops restart
+# Check configuration
+catops config
 ```
 
-## Difference from Hub
+## Standalone vs Cloud Mode
 
-| | Hub | CLI |
-|-|-----|-----|
-| **Purpose** | Web dashboard | Monitoring agent |
-| **Runs on** | Your server | Your server |
-| **Interface** | Web browser | Command line |
-| **License** | Required ($5-12/mo) | Free |
-| **Features** | Dashboard, Docker, Network | Metrics, Alerts, AI |
+| Mode | Features |
+|------|----------|
+| **Standalone** | Local metrics, terminal UI, no account needed |
+| **Cloud** | Dashboard, alerts, AI, history, multi-server |
+
+### Enable Cloud Mode
+
+```bash
+catops auth login YOUR_TOKEN
+catops service install && catops service start
+```
+
+Get your token at [catops.app/settings](https://catops.app/settings).
+
+## CLI vs Hub
+
+| | CLI | Hub |
+|---|-----|-----|
+| **Interface** | Terminal | Web dashboard |
+| **Price** | Free | $5-99 |
+| **Multi-server** | Via Cloud | Built-in |
+| **Docker** | View only | Full control |
+| **Data storage** | Cloud/None | Local |
+
+## System Requirements
+
+- Linux (x86_64, ARM64, ARM)
+- macOS (Intel, Apple Silicon)
+- FreeBSD (x86_64)
+
+No root required. Installs to `~/.local/bin`.
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/cli/installation">
+    Detailed installation guide
+  </Card>
+  <Card title="Commands" icon="terminal" href="/cli/commands">
+    Full command reference
+  </Card>
+  <Card title="Cloud Mode" icon="cloud" href="/cli/cloud-mode">
+    Connect to Cloud dashboard
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/cli/installation#troubleshooting">
+    Common issues and fixes
+  </Card>
+</CardGroup>

@@ -1,75 +1,82 @@
 ---
-title: Introduction
-description: 'Server monitoring and CLI tools for developers'
+title: Welcome to CatOps
+description: 'Server monitoring that just works. No YAML, no complexity.'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="CatOps Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="CatOps Hero Dark"
-/>
+CatOps is a monitoring platform built for indie hackers, small teams, and developers who want simple, fast, and affordable server monitoring.
 
-## What is CatOps?
+***
 
-CatOps is a suite of tools for server monitoring and management:
+## Choose Your Product
 
-- **Hub** - Self-hosted server monitoring dashboard
-- **CLI** - Command-line tools for server management
-
-## Quick Start
-
-<CardGroup cols={2}>
-  <Card
-    title="Install Hub"
-    icon="server"
-    href="/hub/installation"
-  >
-    Deploy a monitoring dashboard on your server in under a minute
+<CardGroup cols={3}>
+  <Card title="Cloud" icon="cloud" href="/cloud/overview">
+    SaaS dashboard with free tier. Zero config.
   </Card>
-  <Card
-    title="Install CLI"
-    icon="terminal"
-    href="/cli/installation"
-  >
-    Install command-line tools for server management
+  <Card title="Hub" icon="server" href="/hub/overview">
+    Self-hosted. Your data stays private. From $5.
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/overview">
+    Lightweight agent. Runs anywhere. Free forever.
   </Card>
 </CardGroup>
 
-## Hub Installation
+***
+
+## Get Started
+
+Install in seconds:
 
 ```bash
-curl -fsSL https://get.catops.app/hub.sh | sudo sh
+curl -fsSL https://get.catops.app/install.sh | bash
 ```
 
-After installation:
-1. Open `http://your-server-ip:8090`
-2. Create your admin account
-3. Activate your license
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Get monitoring running in 2 minutes
+  </Card>
+  <Card title="Compare Products" icon="scale-balanced" href="/comparison">
+    Cloud vs Hub vs CLI - which one fits?
+  </Card>
+</CardGroup>
 
-## CLI Installation
-
-```bash
-curl -fsSL https://get.catops.app/cli.sh | sh
-```
+***
 
 ## Features
 
 <CardGroup cols={2}>
-  <Card title="Real-time Monitoring" icon="chart-line">
-    CPU, memory, disk, and network metrics with 10-second refresh
+  <Card title="Real-time Metrics" icon="chart-line">
+    CPU, memory, disk, network - updated every 10 seconds
   </Card>
-  <Card title="Docker Integration" icon="docker">
-    View containers, logs, start/stop/restart from dashboard
+  <Card title="Health Checks" icon="heart-pulse">
+    HTTP monitoring with instant alerts
   </Card>
-  <Card title="Self-hosted" icon="lock">
-    Your data stays on your server. No third-party services
+  <Card title="Docker & Containers" icon="docker">
+    View logs, start/stop/restart from dashboard
   </Card>
-  <Card title="Lightweight" icon="feather">
-    Single binary, ~15MB. Minimal resource usage
+  <Card title="Telegram Alerts" icon="bell">
+    Get notified when something goes wrong
+  </Card>
+  <Card title="AI Assistant" icon="robot">
+    Ask "why is CPU high?" and get answers
+  </Card>
+  <Card title="Self-hosted Option" icon="lock">
+    Your data never leaves your server
+  </Card>
+</CardGroup>
+
+***
+
+## Resources
+
+<CardGroup cols={3}>
+  <Card title="GitHub" icon="github" href="https://github.com/mfhonley/catops">
+    Star us on GitHub
+  </Card>
+  <Card title="Community" icon="telegram" href="https://t.me/mfhonley">
+    Join our Telegram
+  </Card>
+  <Card title="Dashboard" icon="gauge" href="https://catops.app">
+    Open CatOps
   </Card>
 </CardGroup>

@@ -1,0 +1,157 @@
+---
+title: Remote Agents
+description: 'Monitor multiple servers from one Hub dashboard'
+---
+
+Hub can monitor multiple remote servers using lightweight agents that connect via WebSocket.
+
+## How It Works
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   Server 1   │     │   Server 2   │     │   Server 3   │
+│  (Hub Main)  │     │   (Agent)    │     │   (Agent)    │
+└──────────────┘     └──────┬───────┘     └──────┬───────┘
+       ▲                    │                    │
+       │         WebSocket  │    WebSocket       │
+       └────────────────────┴────────────────────┘
+```
+
+## Adding a Remote Agent
+
+<Steps>
+  <Step title="Create Agent in Hub">
+    Go to **Agents** tab in Hub dashboard and click **Add Agent**.
+
+    Enter a name for the server and click Create.
+
+    **Copy the token** - it's only shown once!
+  </Step>
+  <Step title="Install Agent">
+    Copy the **Install Command** from the modal and run it on the remote server:
+    ```bash
+    curl -fsSL https://get.catops.app/agent.sh | sudo sh -s -- --hub https://your-hub:8090 --token YOUR_TOKEN
+    ```
+
+    This script automatically:
+    - Detects your OS and architecture
+    - Downloads the correct binary
+    - Installs to `/usr/local/bin/catops-agent`
+    - Creates a systemd service
+    - Starts the agent
+  </Step>
+  <Step title="Verify Connection">
+    Check that the agent is running:
+    ```bash
+    sudo systemctl status catops-agent
+    ```
+
+    The agent should appear as **Online** in the Hub dashboard.
+  </Step>
+</Steps>
+
+## Manual Installation
+
+If you prefer manual installation instead of the install script:
+
+```bash
+# Download binary (example for Linux AMD64)
+curl -LO https://github.com/catops-studio/hub/releases/latest/download/catops-agent_linux_amd64.tar.gz
+tar xzf catops-agent_linux_amd64.tar.gz
+sudo mv catops-agent /usr/local/bin/
+
+# Run manually
+catops-agent --hub https://your-hub:8090 --token YOUR_TOKEN
+```
+
+## Agent Options
+
+| Flag | Description |
+|------|-------------|
+| `--hub` | Hub URL (required) |
+| `--token` | Agent token (required) |
+| `--name` | Custom agent name (default: hostname) |
+| `--interval` | Collection interval in seconds (default: 10) |
+| `--version` | Print version |
+
+## What Agents Collect
+
+Every 10 seconds (configurable), agents send:
+
+| Metric | Details |
+|--------|---------|
+| CPU | Total %, per-core %, user, system, iowait |
+| Memory | Used, total, percentage, buffers/cache |
+| Swap | Used, total, percentage |
+| Disk | Usage %, used, total, read/write rates |
+| Network | RX/TX bytes per second |
+| Load | 1, 5, 15 minute averages |
+
+## Managing Agents
+
+### View Agent Status
+
+In the Hub dashboard, go to **Agents** to see:
+- Online/Offline status
+- Last seen time
+- System information
+
+### Regenerate Token
+
+If a token is compromised:
+1. Go to Agents → select agent
+2. Click **Regenerate Token**
+3. Update the agent with new token
+
+### Delete Agent
+
+1. Go to Agents → select agent
+2. Click **Delete**
+3. Stop the agent process on remote server
+
+## Agent Limits
+
+| Plan | Max Agents |
+|------|------------|
+| Personal | 3 |
+| PRO | Unlimited |
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Agent shows offline">
+    1. Check agent is running: `systemctl status catops-agent`
+    2. Verify Hub is reachable: `curl https://your-hub:8090/health`
+    3. Check token is correct
+    4. View logs: `journalctl -u catops-agent -f`
+  </Accordion>
+
+  <Accordion title="Connection refused">
+    1. Ensure Hub firewall allows port 8090
+    2. Check Hub is running: `systemctl status catops-hub`
+    3. Verify URL is correct (include https:// or http://)
+  </Accordion>
+
+  <Accordion title="Token invalid">
+    1. Tokens are only shown once at creation
+    2. Regenerate token in Hub dashboard
+    3. Update agent with new token
+  </Accordion>
+</AccordionGroup>
+
+## Uninstalling Agent
+
+On the remote server:
+
+```bash
+# Stop and disable service
+sudo systemctl stop catops-agent
+sudo systemctl disable catops-agent
+
+# Remove files
+sudo rm /etc/systemd/system/catops-agent.service
+sudo rm /usr/local/bin/catops-agent
+sudo systemctl daemon-reload
+```
+
+Then delete the agent from Hub dashboard (Agents → select agent → **Delete**).

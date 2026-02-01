@@ -1,0 +1,112 @@
+---
+title: Hub Alerts
+description: 'Configure notifications for Hub'
+---
+
+Get notified when something goes wrong on your servers.
+
+## Alert Types
+
+| Alert | Trigger |
+|-------|---------|
+| High CPU | CPU usage > threshold |
+| High Memory | Memory usage > threshold |
+| High Disk | Disk usage > threshold |
+| Health Check Down | Endpoint unreachable |
+| Container Stopped | Docker container exits |
+
+## Setting Up Telegram
+
+<Steps>
+  <Step title="Create Bot">
+    Open [@BotFather](https://t.me/BotFather) in Telegram
+    Send `/newbot` and follow instructions
+    Copy the API token
+  </Step>
+  <Step title="Get Chat ID">
+    Start a chat with your new bot
+    Send any message
+    Visit: `https://api.telegram.org/bot<TOKEN>/getUpdates`
+    Find your chat_id in the response
+  </Step>
+  <Step title="Configure Hub">
+    In Hub: Settings → Notifications → Telegram
+    Enter bot token and chat ID
+    Click Save
+  </Step>
+  <Step title="Test">
+    Click "Send Test" to verify
+  </Step>
+</Steps>
+
+## Configuring Thresholds
+
+In Settings → Alerts:
+
+| Metric | Default | Recommended |
+|--------|---------|-------------|
+| CPU | 80% | 80-90% |
+| Memory | 85% | 80-90% |
+| Disk | 90% | 85-95% |
+
+### Alert Delay
+
+Set how long a condition must persist before alerting:
+- **Instant**: Alert immediately
+- **1 minute**: Must stay high for 1 min
+- **5 minutes**: Must stay high for 5 min
+
+Longer delays reduce false alerts from temporary spikes.
+
+## Alert History
+
+View past alerts in Alerts tab:
+- Timestamp
+- Type
+- Severity
+- Resolution status
+
+## Muting Alerts
+
+During maintenance:
+1. Go to the server or health check
+2. Click "Mute"
+3. Choose duration
+4. Alerts pause until unmute
+
+## Alert Rules (PRO)
+
+PRO users can create custom rules:
+
+```
+IF cpu > 90% FOR 5 minutes
+AND memory > 80%
+THEN alert telegram
+```
+
+## Quiet Hours
+
+Coming soon: Disable alerts during specified hours.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Not receiving Telegram alerts">
+    1. Verify bot token is correct
+    2. Ensure you've sent a message to the bot first
+    3. Check chat_id matches your chat
+    4. Try "Send Test" button
+  </Accordion>
+
+  <Accordion title="Too many alerts">
+    1. Increase thresholds (e.g., CPU 80% → 90%)
+    2. Add alert delay (5 minutes)
+    3. Use mute during known high-usage periods
+  </Accordion>
+
+  <Accordion title="Alert not resolving">
+    Alerts auto-resolve when condition clears. If stuck:
+    1. Check current metric values
+    2. Manually clear in Alert History
+  </Accordion>
+</AccordionGroup>

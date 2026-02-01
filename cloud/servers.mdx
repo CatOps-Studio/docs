@@ -1,0 +1,117 @@
+---
+title: Server Monitoring
+description: 'Add and manage servers in CatOps Cloud'
+---
+
+## Adding a Server
+
+### Step 1: Get Your Token
+
+Go to [catops.app/settings](https://catops.app/settings) and copy your Agent Token.
+
+### Step 2: Install Agent
+
+Run on your server:
+
+```bash
+curl -fsSL https://get.catops.app/install.sh | bash
+```
+
+<Warning>
+  Don't use `sudo`. The agent installs to your home directory (`~/.local/bin`).
+</Warning>
+
+### Step 3: Connect to Cloud
+
+```bash
+catops auth login YOUR_TOKEN
+```
+
+### Step 4: Start as Service
+
+```bash
+catops service install
+catops service start
+```
+
+Your server will now appear in the dashboard.
+
+## What Gets Collected
+
+Every 10-30 seconds (configurable), the agent collects:
+
+| Metric | Description |
+|--------|-------------|
+| CPU | Usage percentage, per-core breakdown |
+| Memory | Used, available, cached, swap |
+| Disk | Usage per mount, IOPS, throughput |
+| Network | Bytes in/out, connections, errors |
+| Processes | Top processes by CPU and memory |
+| Services | Detected services (nginx, postgres, etc.) |
+| Load | 1m, 5m, 15m load averages |
+
+## Changing Collection Interval
+
+```bash
+catops set interval 30
+catops restart
+```
+
+Valid range: 10-300 seconds.
+
+## Multiple Servers
+
+Repeat the install process on each server. They'll all appear in your dashboard.
+
+```bash
+# On server 2
+curl -fsSL https://get.catops.app/install.sh | bash
+catops auth login YOUR_TOKEN
+catops service install && catops service start
+```
+
+<Info>
+  Free tier: up to 3 servers. PRO: unlimited.
+</Info>
+
+## Naming Servers
+
+Servers are named by their hostname by default. To change:
+
+1. Go to Settings in the dashboard
+2. Find the server
+3. Click Edit and set a custom name
+
+## Removing a Server
+
+On the server:
+
+```bash
+catops service stop
+catops service remove
+catops uninstall
+```
+
+Then remove it from the dashboard in Settings → Servers.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Server not appearing in dashboard">
+    1. Check connection: `catops auth info`
+    2. Restart service: `catops restart`
+    3. Check logs: `catops service status`
+  </Accordion>
+
+  <Accordion title="Metrics not updating">
+    1. Ensure service is running: `catops service status`
+    2. Check network: `curl https://api.catops.app/health`
+    3. Restart: `catops restart`
+  </Accordion>
+
+  <Accordion title="High CPU usage from agent">
+    The agent typically uses less than 1% CPU. If higher:
+    1. Increase interval: `catops set interval 60`
+    2. Restart: `catops restart`
+  </Accordion>
+</AccordionGroup>

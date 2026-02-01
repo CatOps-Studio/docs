@@ -1,63 +1,129 @@
 ---
 title: Plans & Pricing
-description: 'CatOps Hub pricing plans'
+description: 'CatOps Hub pricing - one-time payment, lifetime access'
 ---
 
 ## Plan Comparison
 
-| Feature | Personal | Pro |
+| Feature | Personal | PRO |
 |---------|----------|-----|
-| **Price** | $5/month | $12/month |
-| **Data Retention** | 24 hours | 30 days |
-| **Docker Containers** | Up to 10 | Unlimited |
-| **Servers** | 1 | 3 |
+| **Price** | $5 one-time | $99 one-time |
+| **Devices** | Up to 3 | Unlimited |
+| **Data Retention** | 7 days | 30 days |
+| **Docker Containers** | Unlimited | Unlimited |
+| **Health Checks** | 10 | Unlimited |
+| **Multi-User** | No | Yes |
+| **RBAC** | No | Yes |
+| **Audit Logs** | No | Yes |
+| **Alerts** | Email | All channels |
+| **Updates** | Lifetime | Lifetime |
 
-## Personal - $5/month
+## Personal - $5
 
-Best for personal projects and development servers.
+Best for indie hackers, home labs, and dev machines.
 
-- Real-time monitoring dashboard
-- Docker container management (up to 10)
-- Service detection
-- Network monitoring
-- 24-hour metrics history
-- 1 server
+<CardGroup cols={2}>
+  <Card title="Included">
+    - Up to 3 devices/agents
+    - 7-day metrics retention
+    - Docker container monitoring
+    - Service detection
+    - Network monitoring
+    - Health checks (up to 10)
+    - Email alerts
+    - Lifetime updates
+  </Card>
+  <Card title="Use Cases">
+    - Personal projects
+    - Home servers
+    - Development machines
+    - Mac workstations
+    - Small VPS instances
+  </Card>
+</CardGroup>
 
-## Pro - $12/month
+## PRO - $99
 
-Best for production servers and teams.
+Best for teams, production servers, and businesses.
 
-Everything in Personal, plus:
-- 30-day metrics retention
-- Unlimited containers
-- Up to 3 servers
+<CardGroup cols={2}>
+  <Card title="Everything in Personal, plus">
+    - Unlimited devices/agents
+    - 30-day metrics retention
+    - Unlimited health checks
+    - Multi-user access
+    - Role-based access (Admin/Viewer)
+    - Audit logs
+    - Telegram alerts
+    - Priority support
+  </Card>
+  <Card title="Use Cases">
+    - Production servers
+    - Teams and companies
+    - Client infrastructure
+    - Agencies managing multiple sites
+    - Enterprise deployments
+  </Card>
+</CardGroup>
 
-<Card title="Get Started" icon="rocket" href="https://catops.app/hub">
-  Purchase at catops.app/hub
+<Card title="Get a License" icon="key" href="https://catops.app/hub-licenses">
+  Purchase at catops.app/hub-licenses
 </Card>
 
-## Upgrading
+## Why One-Time Payment?
 
-1. Purchase Pro at [catops.app/hub](https://catops.app/hub)
-2. Find your new license key at [catops.app/billing](https://catops.app/billing) in the Hub tab
-3. Deactivate current license: `sudo -u catops /opt/catops/catops-hub deactivate`
-4. Enter your new Pro license key
+No subscriptions. No monthly fees. Pay once, use forever.
 
-Your data is preserved during the upgrade.
+- **Lifetime updates** - Always get the latest version
+- **No lock-in** - Your data stays on your server
+- **Predictable costs** - Budget once, not monthly
+
+## Upgrading to PRO
+
+<Steps>
+  <Step title="Purchase PRO">
+    Go to [catops.app/hub-licenses](https://catops.app/hub-licenses)
+  </Step>
+  <Step title="Get New Key">
+    Copy your PRO license key from confirmation
+  </Step>
+  <Step title="Update License">
+    In Hub: Settings → License → enter new key
+    Or: `catops-hub deactivate` then re-enter new key
+  </Step>
+</Steps>
+
+Your data is preserved during upgrade.
 
 ## FAQ
 
 <AccordionGroup>
-  <Accordion title="Can I switch between plans?">
-    Yes, upgrade or downgrade anytime. Your data is preserved (within the new plan's retention limit).
+  <Accordion title="Is it really one-time payment?">
+    Yes. Pay once, use forever. No recurring charges.
   </Accordion>
-  <Accordion title="What happens if my license expires?">
-    Hub redirects to the activation page. Your data is preserved. Renew to continue.
+
+  <Accordion title="What about updates?">
+    All updates are included forever. Run `update-hub.sh` anytime.
   </Accordion>
+
   <Accordion title="Can I use one license on multiple servers?">
-    Personal: 1 server. Pro: up to 3 servers.
+    Personal: Up to 3 servers (via agents).
+    PRO: Unlimited servers.
   </Accordion>
+
+  <Accordion title="What if I need more than 3 devices on Personal?">
+    Upgrade to PRO, or purchase additional Personal licenses.
+  </Accordion>
+
+  <Accordion title="Is there a refund policy?">
+    Yes, 30-day money-back guarantee if Hub doesn't meet your needs.
+  </Accordion>
+
   <Accordion title="What payment methods are accepted?">
-    Credit/debit cards through Polar.
+    Credit/debit cards via Polar.sh.
+  </Accordion>
+
+  <Accordion title="Can I switch from Cloud to Hub?">
+    Yes, they're separate products. You can use both if needed.
   </Accordion>
 </AccordionGroup>

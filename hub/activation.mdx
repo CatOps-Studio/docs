@@ -1,0 +1,114 @@
+---
+title: License Activation
+description: 'Activate your CatOps Hub license'
+---
+
+## Getting a License
+
+1. Go to [catops.app/hub-licenses](https://catops.app/hub-licenses)
+2. Choose a plan:
+   - **Personal ($5)** - Up to 3 devices, 7-day retention
+   - **PRO ($99)** - Unlimited devices, 30-day retention
+3. Complete payment
+4. Copy your license key from the confirmation page or email
+
+## Activating Hub
+
+<Steps>
+  <Step title="Open Hub">
+    Navigate to `http://your-server:8090`
+  </Step>
+  <Step title="Create Admin Account">
+    On first visit, create your admin username and password
+  </Step>
+  <Step title="Go to Activation">
+    Click Settings → License or go to `/activate`
+  </Step>
+  <Step title="Enter License Key">
+    Paste your license key and click Activate
+  </Step>
+</Steps>
+
+## Activation Slots
+
+Each license has a limited number of activation slots:
+
+| Plan | Slots |
+|------|-------|
+| Personal | 3 devices |
+| PRO | Unlimited |
+
+If you've used all slots and need to move Hub to a new server:
+1. Deactivate on the old server (see below)
+2. Activate on the new server
+
+## Deactivating a License
+
+To free up an activation slot:
+
+```bash
+catops-hub deactivate
+```
+
+Or from the Settings page, click "Deactivate License".
+
+<Warning>
+  After deactivation, Hub will stop collecting metrics until reactivated.
+</Warning>
+
+## Offline Activation
+
+For air-gapped or offline networks:
+
+<Steps>
+  <Step title="Get Request Code">
+    Go to `/activate` and click "Offline Activation"
+    Copy the request code shown
+  </Step>
+  <Step title="Generate Response">
+    On a machine with internet, go to `catops.app/offline-activate`
+    Enter your license key and request code
+    Copy the response code
+  </Step>
+  <Step title="Activate">
+    Back on your server, enter the response code
+    Click "Activate Offline"
+  </Step>
+</Steps>
+
+## License Status
+
+Check your license status:
+
+```bash
+catops-hub version
+```
+
+Or in the dashboard under Settings → License.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Invalid license key">
+    - Check for typos or extra spaces
+    - Ensure the license is for Hub (not Cloud)
+    - Try copying again from your email or dashboard
+  </Accordion>
+
+  <Accordion title="License already activated">
+    You've used all activation slots. Deactivate from another device first, or upgrade to PRO for unlimited devices.
+  </Accordion>
+
+  <Accordion title="Network error during activation">
+    Hub needs internet access for initial activation. For offline networks, use the offline activation method above.
+  </Accordion>
+</AccordionGroup>
+
+## Upgrading License
+
+To upgrade from Personal to PRO:
+
+1. Purchase PRO at [catops.app/hub-licenses](https://catops.app/hub-licenses)
+2. In Hub, go to Settings → License
+3. Enter the new PRO license key
+4. The old license will be replaced

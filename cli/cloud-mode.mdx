@@ -1,0 +1,109 @@
+---
+title: Cloud Mode
+description: 'Connect CLI to CatOps Cloud dashboard'
+---
+
+Cloud mode connects your CLI agent to the CatOps Cloud dashboard, enabling:
+- Web dashboard with metrics history
+- Telegram and email alerts
+- AI-powered server analysis
+- Multi-server monitoring
+
+## Getting Started
+
+<Steps>
+  <Step title="Create Account">
+    Sign up at [catops.app](https://catops.app) with email or GitHub.
+  </Step>
+  <Step title="Get Token">
+    Go to Settings and copy your Agent Token.
+  </Step>
+  <Step title="Connect">
+    ```bash
+    catops auth login YOUR_TOKEN
+    ```
+  </Step>
+  <Step title="Start Service">
+    ```bash
+    catops service install
+    catops service start
+    ```
+  </Step>
+</Steps>
+
+Your server now appears in the Cloud dashboard.
+
+## What Gets Sent
+
+When connected to Cloud, the agent sends:
+
+| Data | Frequency |
+|------|-----------|
+| CPU, memory, disk metrics | Every 10-30s |
+| Network traffic | Every 10-30s |
+| Process list | Every 30s |
+| Service status | Every 60s |
+
+<Info>
+  No sensitive data (passwords, keys, file contents) is ever sent.
+</Info>
+
+## Check Connection Status
+
+```bash
+catops auth info
+```
+
+Output:
+```
+Cloud Mode: enabled
+Server ID: abc123
+Last sync: 10 seconds ago
+```
+
+## Disconnect from Cloud
+
+To disable Cloud mode:
+
+```bash
+catops auth logout
+catops restart
+```
+
+The CLI continues to work locally, but:
+- Dashboard won't show this server
+- Alerts won't be sent
+- AI features won't work
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Server not appearing in dashboard">
+    1. Verify token: `catops auth info`
+    2. Check daemon is running: `catops service status`
+    3. Restart: `catops restart`
+    4. Check network: `curl https://api.catops.app/health`
+  </Accordion>
+
+  <Accordion title="Auth token invalid">
+    1. Go to [catops.app/settings](https://catops.app/settings)
+    2. Copy the token again
+    3. Re-login: `catops auth login NEW_TOKEN`
+  </Accordion>
+
+  <Accordion title="Metrics not syncing">
+    1. Check service: `catops service status`
+    2. View logs: Look in `~/.catops/logs/`
+    3. Restart service: `catops restart`
+  </Accordion>
+</AccordionGroup>
+
+## Privacy
+
+Cloud mode collects system metrics only:
+- No file contents
+- No environment variables
+- No passwords or secrets
+- No command history
+
+You can review exactly what's collected in Settings → Server → Data.

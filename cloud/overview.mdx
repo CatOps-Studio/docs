@@ -1,0 +1,98 @@
+---
+title: Cloud Overview
+description: 'SaaS server monitoring with free tier'
+---
+
+CatOps Cloud is a hosted monitoring platform. Sign up, install the agent, and start monitoring in under 2 minutes.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Server Monitoring" icon="server">
+    CPU, memory, disk, network metrics with 10-second intervals
+  </Card>
+  <Card title="Health Checks" icon="heart-pulse">
+    Monitor websites and APIs with uptime tracking
+  </Card>
+  <Card title="Instant Alerts" icon="bell">
+    Telegram, email notifications when something breaks
+  </Card>
+  <Card title="AI Assistant" icon="robot">
+    Ask questions about your servers in natural language
+  </Card>
+  <Card title="Process Monitoring" icon="microchip">
+    See which processes consume the most resources
+  </Card>
+  <Card title="Service Detection" icon="gears">
+    Auto-detect nginx, PostgreSQL, Redis, Docker, and more
+  </Card>
+</CardGroup>
+
+## Quick Start
+
+<Steps>
+  <Step title="Sign Up">
+    Create an account at [catops.app](https://catops.app)
+  </Step>
+  <Step title="Install Agent">
+    ```bash
+    curl -fsSL https://get.catops.app/install.sh | bash
+    ```
+  </Step>
+  <Step title="Connect">
+    ```bash
+    catops auth login YOUR_TOKEN
+    catops service install && catops service start
+    ```
+    Find your token in the dashboard under Settings → Agent Token.
+  </Step>
+</Steps>
+
+## Dashboard Overview
+
+After connecting, you'll see:
+
+- **Servers**: List of all connected servers with status
+- **Health Checks**: Uptime monitoring for your websites/APIs
+- **Alerts**: Alert history and configuration
+- **Settings**: Notification channels, agent tokens, account
+
+## Plans
+
+| | Free | PRO | Team |
+|---|:---:|:---:|:---:|
+| **Price** | $0/mo | $9/mo | $29/mo |
+| **Servers** | 3 | Unlimited | Unlimited |
+| **Health Checks** | 3 | Unlimited | Unlimited |
+| **Data Retention** | 7 days | 30 days | 30 days |
+| **Alerts** | Email | All channels | All channels |
+| **Public Status Pages** | No | Yes | Yes |
+| **Team Collaboration** | No | No | Yes |
+
+<Card title="Upgrade to PRO" icon="star" href="https://catops.app/settings/billing">
+  Unlock unlimited servers and all features
+</Card>
+
+## Supported Platforms
+
+The agent runs on:
+- Linux (x86_64, ARM64, ARM)
+- macOS (Intel, Apple Silicon)
+- FreeBSD (x86_64)
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Add Servers" icon="server" href="/cloud/servers">
+    Install agent on more machines
+  </Card>
+  <Card title="Health Checks" icon="heart-pulse" href="/cloud/health-checks">
+    Monitor your websites and APIs
+  </Card>
+  <Card title="Set Up Alerts" icon="bell" href="/cloud/alerts">
+    Configure Telegram and email notifications
+  </Card>
+  <Card title="CLI Commands" icon="terminal" href="/cli/commands">
+    Learn all available commands
+  </Card>
+</CardGroup>

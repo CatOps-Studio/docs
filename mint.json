@@ -7,72 +7,96 @@
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#0ea5e9",
-    "light": "#38bdf8",
-    "dark": "#0284c7",
+    "primary": "#3B82F6",
+    "light": "#60A5FA",
+    "dark": "#2563EB",
+    "background": {
+      "dark": "#0F0F10",
+      "light": "#FFFFFF"
+    },
     "anchors": {
-      "from": "#0ea5e9",
-      "to": "#8b5cf6"
+      "from": "#3B82F6",
+      "to": "#2563EB"
     }
+  },
+  "modeToggle": {
+    "default": "dark"
   },
   "topbarLinks": [
     {
-      "name": "Pricing",
-      "url": "https://catops.app/hub"
+      "name": "Dashboard",
+      "url": "https://catops.app"
     }
   ],
   "topbarCtaButton": {
     "name": "Get Started",
-    "url": "https://catops.app/hub"
+    "url": "https://catops.app"
   },
-  "tabs": [
-    {
-      "name": "Hub",
-      "url": "hub"
-    },
-    {
-      "name": "CLI",
-      "url": "cli"
-    }
-  ],
   "anchors": [
     {
       "name": "GitHub",
       "icon": "github",
-      "url": "https://github.com/CatOps-Studio"
+      "url": "https://github.com/mfhonley/catops"
+    },
+    {
+      "name": "Community",
+      "icon": "telegram",
+      "url": "https://t.me/mfhonley"
     }
   ],
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction"]
+      "pages": [
+        "introduction",
+        "quickstart",
+        "comparison"
+      ]
+    },
+    {
+      "group": "Cloud",
+      "pages": [
+        "cloud/overview",
+        "cloud/servers",
+        "cloud/health-checks",
+        "cloud/alerts",
+        "cloud/integrations"
+      ]
     },
     {
       "group": "Hub",
       "pages": [
         "hub/overview",
         "hub/installation",
-        "hub/license",
+        "hub/activation",
         "hub/dashboard",
+        "hub/agents",
+        "hub/containers",
+        "hub/health-checks",
+        "hub/alerts",
         "hub/commands",
-        "hub/configuration",
+        "hub/plans",
         "hub/uninstall"
       ]
-    },
-    {
-      "group": "Plans",
-      "pages": ["hub/plans"]
     },
     {
       "group": "CLI",
       "pages": [
         "cli/overview",
         "cli/installation",
-        "cli/commands"
+        "cli/commands",
+        "cli/cloud-mode"
       ]
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/CatOps-Studio"
+    "github": "https://github.com/mfhonley/catops",
+    "x": "https://x.com/mfhonley"
+  },
+  "feedback": {
+    "thumbsRating": true
+  },
+  "search": {
+    "prompt": "Ask anything about CatOps..."
   }
 }

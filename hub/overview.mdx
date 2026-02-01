@@ -1,63 +1,112 @@
 ---
-title: Overview
+title: Hub Overview
 description: 'Self-hosted server monitoring dashboard'
 ---
 
-CatOps Hub is a lightweight server monitoring dashboard that you install on your server. Monitor CPU, memory, disk, network, and Docker containers from a beautiful web interface.
+CatOps Hub is a lightweight, self-hosted monitoring dashboard. Install it on your server and monitor everything from a beautiful web interface.
 
-## What You Get
+## Why Hub?
 
 <CardGroup cols={2}>
-  <Card title="Real-time Metrics" icon="chart-line">
-    CPU, memory, disk usage and network traffic updated every 10 seconds
+  <Card title="Your Data, Your Server" icon="lock">
+    All data stays on your infrastructure. We never see it.
   </Card>
-  <Card title="Docker Management" icon="docker">
-    View containers, check logs, start/stop/restart with one click
+  <Card title="One-Time Payment" icon="credit-card">
+    No subscriptions. Pay once, use forever.
   </Card>
-  <Card title="Service Detection" icon="server">
-    Automatically detects nginx, PostgreSQL, Redis, and other services
+  <Card title="Single Binary" icon="file">
+    One ~15MB binary. No Docker, no dependencies.
   </Card>
-  <Card title="Network Connections" icon="network-wired">
-    See active connections and listening ports on your server
+  <Card title="Offline Ready" icon="wifi-slash">
+    Works in air-gapped and private networks.
   </Card>
 </CardGroup>
 
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Real-time Metrics** | CPU, memory, disk, network - updated every 10 seconds |
+| **Docker Management** | View containers, logs, start/stop/restart |
+| **Service Detection** | Auto-detect nginx, PostgreSQL, Redis, MySQL, and more |
+| **Network Connections** | See active connections and listening ports |
+| **Health Checks** | Monitor HTTP endpoints for uptime |
+| **Multi-User** | Team access with Admin/Viewer roles (PRO) |
+| **Telegram Alerts** | Get notified when something breaks |
+| **Audit Logs** | Track who did what (PRO) |
+
 ## Quick Start
 
-<Steps>
-  <Step title="Install">
-    Run the install script on your server:
-    ```bash
-    curl -fsSL https://get.catops.app/hub.sh | sudo sh
-    ```
-  </Step>
-  <Step title="Activate License">
-    Start Hub and enter your license key:
-    ```bash
-    catops-hub serve
-    ```
-  </Step>
-  <Step title="Open Dashboard">
-    Access the dashboard in your browser:
-    ```
-    http://your-server-ip:8090
-    ```
-  </Step>
-</Steps>
+```bash
+curl -fsSL https://get.catops.app/hub.sh | sudo sh
+```
+
+Then open `http://your-server:8090` and activate your license.
 
 ## Requirements
 
-- **Linux**, macOS, or FreeBSD
-- Root access for installation
-- Port **8090** (or custom port)
+- **OS**: Linux, macOS, or FreeBSD
+- **Root**: Required for installation
+- **Port**: 8090 (configurable)
+- **RAM**: ~50MB
+- **Disk**: ~50MB + data
 
 ## Pricing
 
-| Plan | Price | Data Retention | Docker Containers |
-|------|-------|----------------|-------------------|
-| Personal | $5/month | 24 hours | Up to 10 |
-| Pro | $12/month | 30 days | Unlimited |
+<CardGroup cols={2}>
+  <Card title="Personal - $5">
+    - Up to 3 devices
+    - 7-day retention
+    - Email alerts
+    - Lifetime updates
+  </Card>
+  <Card title="PRO - $99">
+    - Unlimited devices
+    - 30-day retention
+    - All alert channels
+    - Multi-user + RBAC
+    - Audit logs
+  </Card>
+</CardGroup>
 
-<Card title="Get Started" icon="rocket" href="https://catops.app/hub">
-  Purchase a license at catops.app/hub
+<Card title="Get a License" icon="key" href="https://catops.app/hub-licenses">
+  Purchase at catops.app/hub-licenses
 </Card>
+
+## Architecture
+
+Hub runs as a single process on your server:
+
+```
+┌─────────────────────────────────────────┐
+│              Your Server                │
+│  ┌─────────────────────────────────────┐│
+│  │         CatOps Hub                  ││
+│  │  ┌──────────┐  ┌────────────────┐   ││
+│  │  │ Collector │  │ Web Dashboard  │   ││
+│  │  └──────────┘  └────────────────┘   ││
+│  │  ┌──────────┐  ┌────────────────┐   ││
+│  │  │ Database │  │ Alert Manager  │   ││
+│  │  │ (SQLite) │  │                │   ││
+│  │  └──────────┘  └────────────────┘   ││
+│  └─────────────────────────────────────┘│
+│         Docker Socket (optional)        │
+└─────────────────────────────────────────┘
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/hub/installation">
+    Install Hub on your server
+  </Card>
+  <Card title="Activate License" icon="key" href="/hub/activation">
+    Activate your Hub license
+  </Card>
+  <Card title="Dashboard Guide" icon="chart-line" href="/hub/dashboard">
+    Learn the dashboard interface
+  </Card>
+  <Card title="Docker Monitoring" icon="docker" href="/hub/containers">
+    Monitor your containers
+  </Card>
+</CardGroup>

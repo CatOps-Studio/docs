@@ -1,0 +1,103 @@
+---
+title: Hub Health Checks
+description: 'Monitor HTTP endpoints from Hub'
+---
+
+Monitor your websites and APIs directly from Hub, without depending on external services.
+
+## Creating a Health Check
+
+1. Go to **Health Checks** in the dashboard
+2. Click **Add**
+3. Configure:
+
+| Field | Description |
+|-------|-------------|
+| Name | Display name |
+| URL | Full URL to monitor |
+| Method | GET, POST, HEAD |
+| Interval | Check frequency (seconds) |
+| Timeout | Max wait time (seconds) |
+
+4. Click **Create**
+
+## How Checks Work
+
+Every interval, Hub:
+1. Sends HTTP request to the URL
+2. Records response time and status
+3. Marks UP if 2xx status code
+4. Marks DOWN if timeout or non-2xx
+5. Sends alert on status change
+
+## Expected Status Codes
+
+By default, any 2xx (200-299) is considered healthy.
+
+To accept only specific codes:
+- `200` - Only 200 is OK
+- `200,201,204` - Accept these specific codes
+
+## Retry Logic
+
+Before alerting, Hub retries failed checks:
+
+| Setting | Default |
+|---------|---------|
+| Retries | 3 |
+| Retry interval | 10s |
+| Confirmation delay | 30s |
+
+This prevents false alerts from temporary network issues.
+
+## Alerts
+
+Configure where to send alerts:
+
+1. Go to Settings → Notifications
+2. Set up Telegram or email
+3. New health check alerts go to configured channels
+
+## Viewing History
+
+Click any health check to see:
+- **Uptime percentage** (24h, 7d, 30d)
+- **Response time graph**
+- **Recent checks** (last 100)
+- **Incident history**
+
+## Limits
+
+| Plan | Health Checks |
+|------|---------------|
+| Personal | 10 |
+| PRO | Unlimited |
+
+## Internal vs External URLs
+
+Hub can monitor:
+- **External URLs**: Public websites, APIs
+- **Internal URLs**: Services on your network (localhost, private IPs)
+
+This is useful for monitoring internal services that aren't publicly accessible.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="All checks show DOWN">
+    1. Check Hub has internet access
+    2. Verify DNS resolution:
+    ```bash
+    curl -I https://your-url.com
+    ```
+    3. Check firewall allows outbound HTTPS
+  </Accordion>
+
+  <Accordion title="Intermittent false alerts">
+    Increase retry count or confirmation delay in check settings.
+  </Accordion>
+
+  <Accordion title="Response times too high">
+    Hub measures from server location. High latency is normal for geographically distant services.
+  </Accordion>
+</AccordionGroup>

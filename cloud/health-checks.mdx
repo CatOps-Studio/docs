@@ -1,0 +1,131 @@
+---
+title: Health Checks
+description: 'Monitor your websites and APIs for uptime'
+---
+
+Health checks monitor your websites and APIs, alerting you when they go down.
+
+## Creating a Health Check
+
+1. Go to **Health Checks** in the dashboard
+2. Click **Add Health Check**
+3. Fill in the details:
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| Name | Display name | `Production API` |
+| URL | Full URL to check | `https://api.example.com/health` |
+| Method | HTTP method | `GET`, `POST`, `HEAD` |
+| Interval | Check frequency | `30` (seconds) |
+| Timeout | Max response time | `10` (seconds) |
+
+4. Click **Create**
+
+## How It Works
+
+Every interval, we:
+1. Send an HTTP request to your URL
+2. Record response time and status code
+3. Mark as **UP** if status is 2xx, **DOWN** otherwise
+4. Send alert if status changes
+
+## Alert Behavior
+
+- **First failure**: Wait and retry
+- **Confirmed down**: Send alert after multiple failures
+- **Recovery**: Send "back up" notification
+
+<Info>
+  We use confirmation checks to avoid false alerts from temporary network issues.
+</Info>
+
+## Expected Status Codes
+
+By default, 2xx responses are considered healthy. You can customize:
+
+| Expected | Behavior |
+|----------|----------|
+| `200` | Only 200 is healthy |
+| `200,201` | 200 or 201 is healthy |
+| `2xx` | Any 200-299 is healthy |
+
+## Keyword Matching
+
+Optionally check that the response contains specific text:
+
+| Field | Description |
+|-------|-------------|
+| Keyword | Text to find in response |
+| Mode | `contains` or `not_contains` |
+
+Example: Check that your API returns `"status":"ok"`.
+
+## Retry Settings
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Retries | Number of retry attempts | `3` |
+| Retry Interval | Seconds between retries | `10` |
+
+## Uptime Statistics
+
+For each health check, you'll see:
+- **24h Uptime**: Last 24 hours
+- **7d Uptime**: Last 7 days
+- **30d Uptime**: Last 30 days
+- **Response Time**: Average, min, max
+
+## Public Status Pages
+
+<Note>
+  Requires PRO plan
+</Note>
+
+Share a public status page with your users:
+
+1. Go to the health check settings
+2. Enable "Public Status Page"
+3. Copy the public URL
+
+Your users can see uptime status without logging in.
+
+## Incidents
+
+When a health check fails, an incident is created:
+- Start time
+- Error message or status code
+- Duration (when recovered)
+
+View incident history in the Health Check details.
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="What endpoint should I monitor?">
+    Create a `/health` endpoint that checks critical dependencies:
+    ```json
+    {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected"
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="How often should I check?">
+    - **Critical services**: Every 30 seconds
+    - **Regular websites**: Every 60 seconds
+    - **Non-critical**: Every 5 minutes
+  </Accordion>
+
+  <Accordion title="What timeout should I use?">
+    Set timeout higher than your typical response time. If your API responds in 500ms, use 5-10s timeout.
+  </Accordion>
+</AccordionGroup>
+
+## Limits
+
+| Plan | Health Checks |
+|------|---------------|
+| Free | 3 |
+| PRO | Unlimited |

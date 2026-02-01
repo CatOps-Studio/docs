@@ -1,0 +1,110 @@
+---
+title: Docker Containers
+description: 'Monitor and manage Docker containers from Hub'
+---
+
+CatOps Hub can monitor and control your Docker containers directly from the dashboard.
+
+## Requirements
+
+- Docker installed on the server
+- CatOps user added to docker group (done automatically by installer)
+
+## What You Can See
+
+For each container:
+- **Name and ID**
+- **Status** (running, stopped, paused)
+- **Image** name and tag
+- **CPU usage** (percentage)
+- **Memory usage** (MB and percentage)
+- **Network I/O** (bytes in/out)
+- **Disk I/O** (reads/writes)
+- **Uptime**
+
+## Container Actions
+
+Click on any container to:
+
+| Action | Description |
+|--------|-------------|
+| **Start** | Start a stopped container |
+| **Stop** | Stop a running container |
+| **Restart** | Restart the container |
+| **View Logs** | See container output |
+
+<Note>
+  Container actions require Admin role.
+</Note>
+
+## Viewing Logs
+
+1. Click on a container
+2. Click "View Logs"
+3. Logs stream in real-time
+4. Filter by level (error, warning, info)
+5. Search within logs
+
+### Log Settings
+
+| Setting | Description |
+|---------|-------------|
+| Lines | Number of log lines to fetch |
+| Follow | Auto-scroll as new logs appear |
+| Timestamps | Show/hide timestamps |
+
+## Docker Compose Support
+
+If you use Docker Compose, Hub shows:
+- Compose project name
+- All containers in the stack
+- Easy start/stop of entire stacks
+
+## Podman Support
+
+Hub also supports Podman containers. Just ensure Podman is running:
+
+```bash
+systemctl enable --now podman.socket
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Containers not showing">
+    Ensure catops user has Docker access:
+    ```bash
+    sudo usermod -aG docker catops
+    sudo systemctl restart catops-hub
+    ```
+  </Accordion>
+
+  <Accordion title="Container actions not working">
+    1. Check you're logged in as Admin
+    2. Verify Docker socket permissions:
+    ```bash
+    ls -la /var/run/docker.sock
+    ```
+    3. Restart Hub service
+  </Accordion>
+
+  <Accordion title="Logs not loading">
+    1. Container must be running
+    2. Check Docker daemon is healthy:
+    ```bash
+    docker ps
+    ```
+    3. Try restarting the container
+  </Accordion>
+</AccordionGroup>
+
+## Resource Alerts
+
+Set alerts for container resource usage:
+
+1. Go to Settings → Alerts
+2. Add container alert rule
+3. Set thresholds:
+   - CPU > 80%
+   - Memory > 80%
+4. Choose notification channel

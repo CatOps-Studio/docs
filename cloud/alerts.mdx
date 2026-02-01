@@ -1,0 +1,121 @@
+---
+title: Alerts
+description: 'Get notified when something goes wrong'
+---
+
+CatOps sends alerts when your servers or health checks have issues.
+
+## Alert Types
+
+| Type | Trigger |
+|------|---------|
+| **Server Down** | Agent stops reporting |
+| **High CPU** | CPU usage exceeds threshold |
+| **High Memory** | Memory usage exceeds threshold |
+| **High Disk** | Disk usage exceeds threshold |
+| **Health Check Down** | Website/API is unreachable |
+| **Health Check Recovery** | Website/API is back up |
+
+## Notification Channels
+
+### Telegram
+
+<Steps>
+  <Step title="Start Bot">
+    Open [@CatOpsBot](https://t.me/CatOpsBot) in Telegram
+  </Step>
+  <Step title="Get Code">
+    Send `/start` to get your connection code
+  </Step>
+  <Step title="Connect">
+    Go to Settings → Notifications → Telegram and enter the code
+  </Step>
+</Steps>
+
+### Email
+
+Email notifications are enabled by default to your account email.
+
+To change notification email:
+1. Go to Settings → Notifications
+2. Update email address
+3. Save
+
+### Slack (Coming Soon)
+
+Connect your Slack workspace to receive alerts in a channel.
+
+### Discord (Coming Soon)
+
+Add the CatOps bot to your Discord server.
+
+## Configuring Thresholds
+
+### Via Dashboard
+
+1. Go to Settings → Alerts
+2. Set thresholds for each metric
+3. Save
+
+### Via CLI
+
+```bash
+# Set CPU alert at 80%
+catops set cpu 80
+
+# Set memory alert at 85%
+catops set mem 85
+
+# Set disk alert at 90%
+catops set disk 90
+```
+
+## Alert Rules
+
+### Server Alerts
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| CPU Threshold | 80% | Alert when CPU exceeds |
+| Memory Threshold | 85% | Alert when memory exceeds |
+| Disk Threshold | 90% | Alert when disk exceeds |
+| Alert Delay | 2 min | Wait before alerting |
+
+### Health Check Alerts
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Retries | 3 | Check N times before alerting |
+| Confirmation | 30s | Wait and recheck |
+
+## Alert History
+
+View all past alerts in the Alerts section:
+- Timestamp
+- Type (server/health check)
+- Status (triggered/resolved)
+- Duration
+
+## Anti-Spam Protection
+
+To prevent notification spam:
+
+- **Cooldown**: 15 minutes between repeated alerts
+- **Max notifications**: 3 "still down" messages
+- **Grouping**: Multiple issues grouped into one alert
+
+## Quiet Hours
+
+Coming soon: Configure hours when you don't want notifications.
+
+## Muting Alerts
+
+Temporarily disable alerts:
+
+1. Go to the server or health check
+2. Click "Mute Alerts"
+3. Choose duration (1h, 8h, 24h, custom)
+
+<Warning>
+  Remember to unmute when maintenance is complete!
+</Warning>

@@ -1,97 +1,60 @@
 ---
-title: Commands
-description: 'CatOps CLI command reference'
+title: CLI Commands
+description: 'Complete CatOps CLI command reference'
 ---
 
-## status
+## Metrics Commands
 
-Show current system metrics.
+### status
+
+Display current system metrics.
 
 ```bash
 catops status
 ```
 
-Shows CPU, memory, disk usage and monitoring status.
+Shows:
+- CPU usage (total and per-core)
+- Memory usage (used/total)
+- Disk usage (per mount)
+- Network traffic
+- Load averages
+- Daemon status
 
-## ask
+### processes
+
+Show top processes by resource usage.
+
+```bash
+catops processes
+```
+
+Options:
+| Flag | Description |
+|------|-------------|
+| `--cpu` | Sort by CPU (default) |
+| `--mem` | Sort by memory |
+| `--limit N` | Show top N processes |
+
+## AI Commands
+
+### ask
 
 Ask AI questions about your server.
 
 ```bash
 catops ask "why is CPU high?"
 catops ask "what's using the most memory?"
+catops ask "any issues on this server?"
 ```
 
-<Info>
-  Requires cloud mode (AUTH_TOKEN) to work.
-</Info>
+<Note>
+  Requires Cloud mode. Enable with `catops auth login`.
+</Note>
 
-## start
+## Configuration Commands
 
-Start the monitoring service.
-
-```bash
-catops start
-```
-
-## restart
-
-Restart the monitoring service.
-
-```bash
-catops restart
-```
-
-Use this after changing configuration.
-
-## set
-
-Configure monitoring thresholds.
-
-```bash
-# Set CPU alert threshold (percentage)
-catops set cpu 80
-
-# Set memory alert threshold (percentage)
-catops set mem 80
-
-# Set disk alert threshold (percentage)
-catops set disk 90
-```
-
-When a threshold is exceeded, you'll get a Telegram alert (if cloud mode is enabled).
-
-## auth
-
-Manage cloud authentication.
-
-```bash
-# Login with token
-catops auth login <token>
-
-# Logout
-catops auth logout
-```
-
-Get your token from [catops.app/billing](https://catops.app/billing).
-
-## update
-
-Update to the latest version.
-
-```bash
-catops update
-```
-
-## uninstall
-
-Remove CatOps from your system.
-
-```bash
-catops uninstall
-```
-
-## config
+### config
 
 View current configuration.
 
@@ -99,16 +62,179 @@ View current configuration.
 catops config
 ```
 
-## version
+Shows:
+- Collection interval
+- Auth status
+- Server ID
+- Config file path
 
-Show CLI version.
+### set
+
+Update configuration settings.
+
+```bash
+# Set collection interval (seconds)
+catops set interval 30
+
+# Set CPU alert threshold (%)
+catops set cpu 80
+
+# Set memory alert threshold (%)
+catops set mem 85
+
+# Set disk alert threshold (%)
+catops set disk 90
+```
+
+Valid intervals: 10-300 seconds.
+
+## Service Commands
+
+### service install
+
+Install CatOps as a system service.
+
+```bash
+catops service install
+```
+
+Creates:
+- **Linux**: systemd user service
+- **macOS**: launchd agent
+
+### service start
+
+Start the monitoring service.
+
+```bash
+catops service start
+```
+
+### service stop
+
+Stop the monitoring service.
+
+```bash
+catops service stop
+```
+
+### service remove
+
+Uninstall the system service.
+
+```bash
+catops service remove
+```
+
+### service status
+
+Check service status.
+
+```bash
+catops service status
+```
+
+## Authentication Commands
+
+### auth login
+
+Connect to CatOps Cloud.
+
+```bash
+catops auth login YOUR_TOKEN
+```
+
+Get your token from [catops.app/settings](https://catops.app/settings).
+
+### auth logout
+
+Disconnect from Cloud.
+
+```bash
+catops auth logout
+```
+
+### auth info
+
+Show current authentication status.
+
+```bash
+catops auth info
+```
+
+## Daemon Commands
+
+### restart
+
+Restart the monitoring daemon.
+
+```bash
+catops restart
+```
+
+Use after changing configuration.
+
+### start
+
+Start monitoring in foreground (debugging).
+
+```bash
+catops start
+```
+
+Press `Ctrl+C` to stop.
+
+## Update Commands
+
+### update
+
+Update to the latest version.
+
+```bash
+catops update
+```
+
+### version
+
+Show current version.
 
 ```bash
 catops version
-```
-
-Or:
-
-```bash
+# or
 catops --version
 ```
+
+## Cleanup Commands
+
+### uninstall
+
+Remove CatOps completely.
+
+```bash
+catops uninstall
+```
+
+Removes:
+- Binary (`~/.local/bin/catops`)
+- Config (`~/.catops/`)
+- System service
+- Log files
+
+### cleanup
+
+Clean up old log files and cache.
+
+```bash
+catops cleanup
+```
+
+## All Flags
+
+Global flags available for all commands:
+
+| Flag | Description |
+|------|-------------|
+| `--help`, `-h` | Show help |
+| `--version`, `-v` | Show version |
+| `--config` | Custom config path |
+| `--verbose` | Enable debug output |

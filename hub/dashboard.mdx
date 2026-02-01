@@ -5,69 +5,93 @@ description: 'Using the CatOps Hub dashboard'
 
 The dashboard shows your server's health and resources in real-time.
 
-## Main Dashboard
+## Overview
 
 When you open Hub, you'll see:
 
-- **CPU** - Current usage percentage
-- **Memory** - How much RAM is used
-- **Disk** - Storage space used
-- **Network** - Traffic in/out (bytes per second)
-- **Load Average** - Server load (1, 5, 15 min)
+| Widget | Description |
+|--------|-------------|
+| **CPU** | Current usage percentage |
+| **Memory** | RAM usage (used/total) |
+| **Disk** | Storage usage per mount |
+| **Network** | Traffic in/out per second |
+| **Load** | 1, 5, 15 minute averages |
 
 All metrics update every **10 seconds**.
 
+## Navigation
+
+| Tab | What It Shows |
+|-----|---------------|
+| Dashboard | System overview with charts |
+| Agents | Connected remote servers |
+| Containers | Docker containers |
+| Services | Detected services |
+| Health Checks | HTTP endpoint monitoring |
+| Alerts | Alert configuration |
+| Settings | License, users, notifications |
+| Audit | Action history (PRO) |
+
 ## Historical Charts
 
-Click any metric card to see historical data. Choose time range:
+Click any metric to see history:
+- **1 hour** - Fine-grained view
+- **6 hours** - Short-term trends
+- **24 hours** - Daily patterns
+- **7 days** - Weekly view (PRO)
+- **30 days** - Monthly trends (PRO)
 
-- 1 hour
-- 6 hours
-- 24 hours
-- 7 days (Pro plan)
+## Services Detection
 
-## Containers
+Hub auto-detects these services:
 
-View and manage your Docker containers:
+| Type | Services |
+|------|----------|
+| Web | nginx, Apache |
+| Database | PostgreSQL, MySQL, MongoDB, Redis |
+| Runtime | Docker, Node.js, Python |
+| Other | SSH, systemd |
 
-- See all containers (running and stopped)
-- Check CPU and memory usage per container
-- Stream logs in real-time
-- Start, stop, or restart containers with one click
+Each service shows its status and resource usage.
 
-<Info>
-  Docker containers appear automatically if Docker is installed on your server.
-</Info>
+## Network View
 
-## Services
+### Connections
 
-Hub automatically detects common services running on your server:
+See active network connections:
+- Remote address
+- Local port
+- Protocol (TCP/UDP)
+- Process name
+- Connection state
 
-- **Web**: nginx, Apache
-- **Database**: PostgreSQL, MySQL, MongoDB, Redis
-- **Other**: Docker, SSH
+### Listening Ports
 
-Each service shows whether it's running or stopped.
+See which ports are open:
+- Port number
+- Process using it
+- Bind address
 
-## Network
+## User Management (PRO)
 
-**Connections** - See active network connections with remote addresses and which process created them.
+| Role | Permissions |
+|------|-------------|
+| Admin | Full access, manage users |
+| Viewer | Read-only access |
 
-**Listening** - See which ports your server is listening on and what process is using each port.
-
-## Settings
-
-View your current plan, license status, and data retention info.
+Add users: Settings → Users → Invite
 
 ## Theme
 
-Switch between **dark** and **light** mode using the theme button in the sidebar.
+Toggle between dark and light mode:
+- Click the theme button in the sidebar
+- Or use Settings → Appearance
 
 ## Data Retention
 
-Old metrics are automatically cleaned up based on your plan:
+| Plan | Retention |
+|------|-----------|
+| Personal | 7 days |
+| PRO | 30 days |
 
-| Plan | Data kept for |
-|------|---------------|
-| Personal | 24 hours |
-| Pro | 30 days |
+Older data is automatically cleaned up.
