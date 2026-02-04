@@ -1,0 +1,60 @@
+---
+title: Processes
+description: 'Monitor and manage running processes'
+---
+
+Hub shows all running processes with resource usage and allows admins to kill processes directly from the dashboard.
+
+## Process List
+
+Each process shows:
+
+| Column | Description |
+|--------|-------------|
+| PID | Process ID |
+| Name | Process name |
+| CPU % | CPU usage percentage |
+| Memory % | Memory usage percentage |
+| Memory | Actual memory used (RSS) |
+| CPU Time | Total CPU time consumed |
+| Status | Process state |
+| User | Owner user |
+
+## Process States
+
+| State | Meaning |
+|-------|---------|
+| R | Running |
+| S | Sleeping |
+| D | Disk sleep (uninterruptible) |
+| Z | Zombie |
+| T | Stopped |
+
+## Sorting
+
+Click column headers to sort by:
+- CPU usage (default, descending)
+- Memory usage
+- Memory RSS
+- PID
+- Name
+- CPU time
+
+## Kill Process
+
+<Warning>
+  Killing processes requires Admin role. Use with caution - killing system processes can crash your server.
+</Warning>
+
+To kill a process:
+1. Find the process in the list
+2. Click the **Kill** button (trash icon)
+3. Confirm the action
+
+## Search
+
+Use the search box to filter processes by name. Useful for finding specific services or applications.
+
+## Process Tree
+
+Processes are grouped by parent-child relationships. Click the arrow to expand and see child processes.

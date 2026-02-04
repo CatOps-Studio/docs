@@ -1,0 +1,45 @@
+---
+title: Network
+description: 'Monitor network connections and listening ports'
+---
+
+Hub provides visibility into your server's network activity, including active connections and listening ports.
+
+## Listening Ports
+
+See all ports your server is listening on:
+
+| Column | Description |
+|--------|-------------|
+| Port | Port number |
+| Protocol | TCP / UDP |
+| Process | Process name using the port |
+| PID | Process ID |
+| Address | Bind address (0.0.0.0, 127.0.0.1, etc.) |
+
+## Active Connections
+
+View established network connections:
+
+| Column | Description |
+|--------|-------------|
+| Local | Local address:port |
+| Remote | Remote address:port |
+| State | Connection state (ESTABLISHED, TIME_WAIT, etc.) |
+| Process | Process name |
+| PID | Process ID |
+
+## Connection States
+
+| State | Meaning |
+|-------|---------|
+| LISTEN | Waiting for connections |
+| ESTABLISHED | Active connection |
+| TIME_WAIT | Connection closing |
+| CLOSE_WAIT | Remote side closed |
+
+## Use Cases
+
+- **Security Audit** - Check what ports are exposed
+- **Debugging** - Find which process is using a port
+- **Monitoring** - Track active connections to your services

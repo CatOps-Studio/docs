@@ -72,8 +72,12 @@
         "hub/dashboard",
         "hub/agents",
         "hub/containers",
+        "hub/processes",
+        "hub/services",
+        "hub/network",
         "hub/health-checks",
         "hub/alerts",
+        "hub/ai",
         "hub/commands",
         "hub/plans",
         "hub/uninstall"

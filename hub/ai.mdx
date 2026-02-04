@@ -1,0 +1,68 @@
+---
+title: AI Assistant
+description: 'Ask questions about your server in natural language'
+---
+
+Hub includes a built-in AI assistant that can analyze your server and answer questions about metrics, containers, alerts, and more.
+
+## Features
+
+- **Server Analysis** - Get insights about current server state
+- **Natural Language** - Ask questions like "why is CPU high?"
+- **Chat History** - Conversations are saved locally
+- **Streaming Responses** - See answers as they're generated
+
+## Quick Prompts
+
+Click any quick prompt to get started:
+
+| Prompt | Description |
+|--------|-------------|
+| Server Analysis | Full overview of current server state |
+| CPU Usage | Analyze CPU usage and find heavy processes |
+| Memory | Check memory usage and potential leaks |
+| Disk Space | Review disk usage across partitions |
+| Containers | Show Docker container status |
+| Alerts | List active alerts and issues |
+
+## Example Questions
+
+```
+Why is CPU usage high?
+What's using the most memory?
+Are there any issues on this server?
+Show me container status
+Analyze recent logs
+What processes are running?
+```
+
+## How It Works
+
+The AI assistant:
+1. Collects current server metrics (CPU, memory, disk, network)
+2. Gathers container information if Docker is running
+3. Checks active alerts and recent incidents
+4. Sends context to OpenAI for analysis
+5. Returns actionable insights
+
+## Settings
+
+Access AI settings via the sidebar (admin only):
+
+| Setting | Value |
+|---------|-------|
+| Provider | OpenAI |
+| Model | gpt-4o-mini |
+| API Key | Embedded (rate limited) |
+
+<Note>
+  AI queries are rate limited per license. PRO licenses have higher limits.
+</Note>
+
+## Chat Management
+
+- **New Chat** - Start a fresh conversation
+- **Delete Chat** - Remove a chat from history
+- **Copy Response** - Copy AI responses to clipboard
+
+Chats are stored locally in your browser and persist across sessions.

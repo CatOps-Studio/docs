@@ -1,0 +1,42 @@
+---
+title: Services
+description: 'Monitor system services and their status'
+---
+
+Hub automatically detects and monitors common services running on your server.
+
+## Detected Services
+
+Hub detects these services automatically:
+
+| Service | Type |
+|---------|------|
+| Nginx, Apache | Web Server |
+| PostgreSQL, MySQL, MongoDB | Database |
+| Redis, Memcached | Cache |
+| Elasticsearch | Search |
+| RabbitMQ | Message Queue |
+| Docker, Containerd | Container Runtime |
+| Prometheus, Grafana | Monitoring |
+| SSH | Security |
+
+## Service Status
+
+Each service shows:
+
+| Field | Description |
+|-------|-------------|
+| Name | Service name |
+| Status | Running / Stopped |
+| Port | Listening port (if applicable) |
+| PID | Process ID |
+
+## Viewing Services
+
+1. Go to **Services** in the sidebar
+2. See all detected services with their status
+3. Click **Refresh** to update the list
+
+<Note>
+  Services are detected based on running processes. If a service is stopped, it won't appear in the list.
+</Note>
