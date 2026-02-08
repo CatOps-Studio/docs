@@ -76,6 +76,7 @@
         "hub/services",
         "hub/network",
         "hub/health-checks",
+        "hub/status-pages",
         "hub/alerts",
         "hub/ai",
         "hub/commands",

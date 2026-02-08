@@ -1,0 +1,121 @@
+---
+title: Public Status Pages
+description: 'Share uptime status with your users'
+---
+
+Hub can create public status pages for your services, accessible to anyone without authentication.
+
+## Creating a Status Page
+
+1. Go to **Health Checks** in the Hub dashboard
+2. Select a health check
+3. Click **Create Public Status Page**
+4. Customize the page:
+   - Page title
+   - Description
+   - Logo (optional)
+   - Custom domain (optional)
+
+## Accessing Status Pages
+
+Each status page gets a unique URL:
+
+```
+https://your-hub:8090/status/abc123xyz
+```
+
+You can share this link with your users or customers.
+
+## Custom Domain Setup
+
+To use your own domain (e.g., `status.mysite.com`):
+
+<Steps>
+  <Step title="Create DNS Record">
+    Add a CNAME or A record pointing to your Hub:
+    ```
+    CNAME: status.mysite.com → your-hub.com
+    ```
+    Or:
+    ```
+    A: status.mysite.com → your-hub-ip
+    ```
+  </Step>
+  <Step title="Configure in Hub">
+    In the status page settings, enter your custom domain:
+    ```
+    status.mysite.com
+    ```
+  </Step>
+  <Step title="Access">
+    Your status page is now available at:
+    ```
+    https://status.mysite.com:8090/status/abc123xyz
+    ```
+  </Step>
+</Steps>
+
+<Note>
+  If using a reverse proxy (nginx, Caddy), you can remove the `:8090` port from the URL.
+</Note>
+
+## What's Displayed
+
+Status pages show:
+
+| Element | Description |
+|---------|-------------|
+| Current Status | Operational / Degraded / Down |
+| Uptime % | 24h, 7d, 30d averages |
+| Response Time | Average response time chart |
+| Incident History | Past 30 days of incidents |
+| Last Checked | When the health check last ran |
+
+## Branding
+
+Customize your status page:
+- **Logo** - Upload your company logo
+- **Colors** - Match your brand (PRO)
+- **Custom CSS** - Advanced styling (PRO)
+
+## Availability
+
+| Plan | Status Pages |
+|------|--------------|
+| Personal | Unlimited |
+| PRO | Unlimited + Custom branding |
+
+## Example Status Page
+
+Here's what a status page looks like:
+
+```
+┌─────────────────────────────────────┐
+│  [Logo]  MyAPI Status               │
+│                                     │
+│  🟢 All Systems Operational         │
+│                                     │
+│  Uptime (30d): 99.9%                │
+│  Response Time: 120ms               │
+│                                     │
+│  Recent Incidents:                  │
+│  • Mar 5 - Database timeout (2min)  │
+│  • Feb 28 - High latency (5min)     │
+└─────────────────────────────────────┘
+```
+
+## Privacy
+
+Status pages are **public** and require no authentication. Only include information you're comfortable sharing publicly:
+- Do not expose internal IPs
+- Do not expose sensitive service names
+- Only show customer-facing services
+
+## Updating Status
+
+Status pages update automatically:
+- Every time the health check runs
+- When incidents are created/resolved
+- Real-time status changes
+
+No manual updates needed!
